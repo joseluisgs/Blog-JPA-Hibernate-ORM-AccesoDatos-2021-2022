@@ -1,15 +1,19 @@
 package es.joseluisgs.dam.blog;
 
 import es.joseluisgs.dam.blog.controller.CategoryController;
+import es.joseluisgs.dam.blog.controller.UserController;
 import es.joseluisgs.dam.blog.dao.Category;
 import es.joseluisgs.dam.blog.database.DataBaseController;
 import es.joseluisgs.dam.blog.dto.CategoryDTO;
+import es.joseluisgs.dam.blog.dto.UserDTO;
 import es.joseluisgs.dam.blog.repository.CategoryRepository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -80,15 +84,14 @@ public class Blog {
                 .build();
         System.out.println(categoryController.postCategoryJSON(categoryDTO));
 
-        System.out.println("UPDATE Categoría: 4");
+        System.out.println("UPDATE Categoría con ID 4");
         Optional<CategoryDTO> optionalCategoryDTO = categoryController.getCategoryById(4L);
         if(optionalCategoryDTO.isPresent()) {
-            System.out.println(optionalCategoryDTO.get());
             optionalCategoryDTO.get().setTexto("Update " + LocalDateTime.now().toString());
             System.out.println(categoryController.updateCategoryJSON(optionalCategoryDTO.get()));
         }
 
-        System.out.println("DELETE Categoría: 6");
+        System.out.println("DELETE Categoría con ID 6");
         optionalCategoryDTO = categoryController.getCategoryById(6L);
         if(optionalCategoryDTO.isPresent()) {
             System.out.println(optionalCategoryDTO.get());
@@ -96,7 +99,48 @@ public class Blog {
         }
 
         System.out.println("FIN CATEGORIAS");
+    }
 
+    public void Users() {
+        System.out.println("INICIO USUARIOS");
 
+        UserController userController = UserController.getInstance();
+
+        System.out.println("GET Todos los usuarios");
+        System.out.println(userController.getAllUsersJSON());
+
+        System.out.println("GET Usuario con ID = 2");
+        System.out.println(userController.getUserByIdJSON(2L));
+
+        System.out.println("POST Usuario");
+        UserDTO userDTO = UserDTO.builder()
+                .nombre("Insert " + LocalDateTime.now().toString())
+                .email("email" + LocalDateTime.now().toString() + "@mail.com")
+                .password("1234")
+                .build();
+        System.out.println(userController.postUserJSON(userDTO));
+        userDTO = UserDTO.builder()
+                .nombre("Insert Otro" + LocalDateTime.now().toString())
+                .email("emailOtro" + LocalDateTime.now().toString() + "@mail.com")
+                .password("1234")
+                .build();
+        System.out.println(userController.postUserJSON(userDTO));
+
+        System.out.println("UPDATE Usuario con ID 4");
+        Optional<UserDTO> optionalUserDTO = userController.getUserById(4L);
+        if(optionalUserDTO.isPresent()) {
+            optionalUserDTO.get().setNombre("Update " + LocalDateTime.now().toString());
+            optionalUserDTO.get().setEmail("emailUpdate" + LocalDateTime.now().toString() + "@mail.com");
+            System.out.println(userController.updateUserJSON(optionalUserDTO.get()));
+        }
+
+        System.out.println("DELETE Usuario con ID 6");
+        optionalUserDTO = userController.getUserById(6L);
+        if(optionalUserDTO.isPresent()) {
+            System.out.println(optionalUserDTO.get());
+            System.out.println(userController.deleteUserJSON(optionalUserDTO.get()));
+        }
+
+        System.out.println("FIN USUARIOS");
     }
 }
