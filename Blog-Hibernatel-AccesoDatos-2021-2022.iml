@@ -5,13 +5,15 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="default" value="7f3213cf-3285-415d-86e8-7f16394e8b64" />
+        </datasource-mapping>
         <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -46,5 +48,10 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.7.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.7.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.7.1" level="project" />
+    <orderEntry type="library" name="Maven: org.mariadb.jdbc:mariadb-java-client:2.7.4" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.22" level="project" />
+    <orderEntry type="library" name="Maven: io.github.cdimascio:dotenv-java:2.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.5.7" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.8" level="project" />
   </component>
 </module>
