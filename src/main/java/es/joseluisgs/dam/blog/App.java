@@ -20,6 +20,9 @@ public class App {
             blog.initDataBase();
 
         // Categorías
-        blog.Categories();
+        // blog.Categories();
+
+        // Usuarios
+        blog.Users();
     }
 }
