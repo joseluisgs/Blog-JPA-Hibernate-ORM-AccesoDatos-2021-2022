@@ -18,6 +18,7 @@
 
         <class>es.joseluisgs.dam.blog.dao.Category</class>
         <class>es.joseluisgs.dam.blog.dao.User</class>
+        <class>es.joseluisgs.dam.blog.dao.Login</class>
 
         <!-- Añadimos las propiedades de conexión a la base de datos MySQL -->
         <properties>
