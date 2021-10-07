@@ -22,6 +22,7 @@ public class User {
     private String email;
     private String password;
     private Date fechaRegistro;
+    private Login login;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -87,5 +88,14 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, nombre, email, password, fechaRegistro);
+    }
+
+    @OneToOne(mappedBy = "user")
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login loginById) {
+        this.login = loginById;
     }
 }
