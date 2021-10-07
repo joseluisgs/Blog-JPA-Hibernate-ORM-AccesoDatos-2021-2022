@@ -44,7 +44,7 @@ public class UserService extends BaseService<User, Long, UserRepository> {
         return mapper.toDTO(res);
     }
 
-//    public User getUserByMail(String userMail) throws SQLException {
-//        return repository.getByMail(userMail);
-//    }
+    public User getUserByMail(String userMail) throws SQLException {
+        return repository.getByEmail(userMail);
+    }
 }

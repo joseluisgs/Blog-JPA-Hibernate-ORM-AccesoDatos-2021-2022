@@ -1,6 +1,7 @@
 package es.joseluisgs.dam.blog;
 
 import es.joseluisgs.dam.blog.controller.CategoryController;
+import es.joseluisgs.dam.blog.controller.LoginController;
 import es.joseluisgs.dam.blog.controller.UserController;
 import es.joseluisgs.dam.blog.dao.Category;
 import es.joseluisgs.dam.blog.database.DataBaseController;
@@ -142,5 +143,28 @@ public class Blog {
         }
 
         System.out.println("FIN USUARIOS");
+    }
+
+    public void Login() {
+        System.out.println("INICIO LOGIN");
+
+        LoginController loginController = LoginController.getInstance();
+
+        System.out.println("Login con un usario que SI existe");
+        System.out.println(loginController.login("pepe@pepe.es", "1234"));
+
+        System.out.println("Login con un usario que SI existe Y mal Password datos correctos");
+        System.out.println(loginController.login("pepe@pepe.es", "1255"));
+
+        System.out.println("Login con un usario que NO existe o mal Password datos correctos");
+        System.out.println(loginController.login("pepe@pepe.com", "1255"));
+
+        System.out.println("Logout de usuario que está logueado");
+        System.out.println(loginController.logout(1L));
+
+        System.out.println("Logout de usuario que no está logueado");
+        System.out.println(loginController.logout(33L));
+
+        System.out.println("FIN LOGIN");
     }
 }

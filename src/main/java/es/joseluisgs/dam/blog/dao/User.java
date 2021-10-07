@@ -16,12 +16,14 @@ import java.util.Objects;
 @AllArgsConstructor
 @Table(name="user") // Ojo con la minuscula que en la tabla está así
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+@NamedQuery(name = "User.getByMail", query = "SELECT u FROM User u WHERE u.email = ?1")
 public class User {
     private long id;
     private String nombre;
     private String email;
     private String password;
     private Date fechaRegistro;
+    private Login login;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -87,5 +89,14 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, nombre, email, password, fechaRegistro);
+    }
+
+    @OneToOne(mappedBy = "user")
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login loginById) {
+        this.login = loginById;
     }
 }
