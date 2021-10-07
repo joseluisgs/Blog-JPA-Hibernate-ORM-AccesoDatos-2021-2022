@@ -92,4 +92,16 @@ public class UserRepository implements CrudRespository<User, Long> {
             hc.close();
         }
     }
+
+    public User getByEmail(String userMail) throws SQLException {
+        HibernateController hc = HibernateController.getInstance();
+        hc.open();
+        User user =  hc.getManager().createNamedQuery("User.getByMail", User.class)
+                .setParameter(1, userMail)
+                        .getSingleResult();
+        hc.close();
+        if(user != null)
+            return user;
+        throw new SQLException("Error UserRepository no existe usuario con Email: " + userMail);
+    }
 }

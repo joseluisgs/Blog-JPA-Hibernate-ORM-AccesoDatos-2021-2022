@@ -16,6 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Table(name="user") // Ojo con la minuscula que en la tabla está así
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+@NamedQuery(name = "User.getByMail", query = "SELECT u FROM User u WHERE u.email = ?1")
 public class User {
     private long id;
     private String nombre;
