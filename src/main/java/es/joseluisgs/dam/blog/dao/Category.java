@@ -1,9 +1,15 @@
 package es.joseluisgs.dam.blog.dao;
 
+
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name="category") // Ojo con la minuscula que en la tabla está así
 @NamedQuery(name = "findAll", query = "SELECT c FROM Category c")
@@ -50,13 +56,5 @@ public class Category {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (texto != null ? texto.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", texto='" + texto + '\'' +
-                '}';
     }
 }

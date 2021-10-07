@@ -11,7 +11,7 @@ public interface CrudRespository<T, ID> {
     List<T> findAll();
 
     // Obtiene por ID
-    T getById(ID id);
+    T getById(ID id) throws SQLException;
 
     // Salva
     T save(T t) throws SQLException;
