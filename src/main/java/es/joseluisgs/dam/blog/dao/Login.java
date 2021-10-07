@@ -27,9 +27,9 @@ public class Login {
         return user.getId();
     }
 
-//    public void setUserId(long userId) {
-//        this.userId = userId;
-//    }
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     @Basic
     @CreationTimestamp // Es una marca de tiempo
