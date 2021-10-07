@@ -14,6 +14,8 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name="login") // Ojo con la minuscula que en la tabla está así
+@NamedQuery(name = "Login.getByToken", query = "SELECT l FROM Login l WHERE l.token = ?1")
 public class Login {
     private long userId;
     private Timestamp ultimoAcceso;
@@ -27,9 +29,9 @@ public class Login {
         return user.getId();
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
+//    public void setUserId(long userId) {
+//        this.userId = userId;
+//    }
 
     @Basic
     @CreationTimestamp // Es una marca de tiempo
@@ -74,5 +76,6 @@ public class Login {
 
     public void setUser(User user) {
         this.user = user;
+        this.userId = user.getId();
     }
 }
