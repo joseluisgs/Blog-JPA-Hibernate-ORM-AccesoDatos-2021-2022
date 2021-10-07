@@ -12,6 +12,13 @@ public class App {
 
         Blog blog = Blog.getInstance();
 
+        // Chequeamos el sistema
+        blog.checkService();
+
+        // Iniciamos la base de datos al estado original en cada prueba
+        if (properties.readProperty("database.init").equals("true"))
+            blog.initDataBase();
+
         // Categorías
         blog.Categories();
     }
