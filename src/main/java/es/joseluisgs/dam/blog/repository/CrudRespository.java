@@ -8,7 +8,7 @@ public interface CrudRespository<T, ID> {
     // Operaciones CRUD
 
     // Obtiene todos
-    List<T> findAll();
+    List<T> findAll() throws SQLException;
 
     // Obtiene por ID
     T getById(ID id) throws SQLException;
