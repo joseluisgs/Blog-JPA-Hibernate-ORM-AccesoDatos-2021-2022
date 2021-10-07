@@ -2,15 +2,14 @@ package es.joseluisgs.dam.blog.dao;
 
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="category") // Ojo con la minuscula que en la tabla está así
 @NamedQuery(name = "findAll", query = "SELECT c FROM Category c")
 public class Category {

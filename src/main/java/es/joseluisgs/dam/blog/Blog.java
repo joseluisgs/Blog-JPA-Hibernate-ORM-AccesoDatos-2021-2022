@@ -1,7 +1,9 @@
 package es.joseluisgs.dam.blog;
 
+import es.joseluisgs.dam.blog.controller.CategoryController;
 import es.joseluisgs.dam.blog.dao.Category;
 import es.joseluisgs.dam.blog.database.DataBaseController;
+import es.joseluisgs.dam.blog.dto.CategoryDTO;
 import es.joseluisgs.dam.blog.repository.CategoryRepository;
 
 import java.io.File;
@@ -57,36 +59,43 @@ public class Blog {
     }
 
     public void Categories() {
-        try {
-            CategoryRepository categoryController = new CategoryRepository();
+        System.out.println("INICIO CATEGORIAS");
 
-            System.out.println("GET Todas las categorías");
-            categoryController.findAll().forEach(System.out::println);
+        CategoryController categoryController = CategoryController.getInstance();
 
-            System.out.println("GET Categoría con ID = 2");
-            System.out.println(categoryController.getById(2L));
+        System.out.println("GET Todas las categorías");
+        System.out.println(categoryController.getAllCategoriesJSON());
 
-            System.out.println("POST Categoría");
-            Category cat = new Category();
-            cat.setTexto("Insert " + LocalDateTime.now().toString());
-            System.out.println(categoryController.save(cat));
+        System.out.println("GET Categoría con ID = 2");
+        System.out.println(categoryController.getCategoryByIdJSON(2L));
 
-            cat = new Category();
-            cat.setTexto("Insert Otra" + LocalDateTime.now().toString());
-            System.out.println(categoryController.save(cat));
+        System.out.println("POST Categoría");
+        CategoryDTO categoryDTO = CategoryDTO.builder()
+                .texto("Insert " + LocalDateTime.now().toString())
+                .build();
+        System.out.println(categoryController.postCategoryJSON(categoryDTO));
 
-            System.out.println("UPDATE Categoría: 4");
-            cat = categoryController.getById(4L);
-            cat.setTexto("Update " + LocalDateTime.now().toString());
-            System.out.println(categoryController.update(cat));
+        categoryDTO = CategoryDTO.builder()
+                .texto("Insert Otra " + LocalDateTime.now().toString())
+                .build();
+        System.out.println(categoryController.postCategoryJSON(categoryDTO));
 
-            System.out.println("DELETE Categoría: 6");
-            cat = categoryController.getById(6L);
-            System.out.println(categoryController.delete(cat));
-
-        } catch (SQLException e) {
-            System.err.println("Error al procesar Categorias: " + e.getMessage());
+        System.out.println("UPDATE Categoría: 4");
+        Optional<CategoryDTO> optionalCategoryDTO = categoryController.getCategoryById(4L);
+        if(optionalCategoryDTO.isPresent()) {
+            System.out.println(optionalCategoryDTO.get());
+            optionalCategoryDTO.get().setTexto("Update " + LocalDateTime.now().toString());
+            System.out.println(categoryController.updateCategoryJSON(optionalCategoryDTO.get()));
         }
+
+        System.out.println("DELETE Categoría: 6");
+        optionalCategoryDTO = categoryController.getCategoryById(6L);
+        if(optionalCategoryDTO.isPresent()) {
+            System.out.println(optionalCategoryDTO.get());
+            System.out.println(categoryController.deleteCategoryJSON(optionalCategoryDTO.get()));
+        }
+
+        System.out.println("FIN CATEGORIAS");
 
 
     }
