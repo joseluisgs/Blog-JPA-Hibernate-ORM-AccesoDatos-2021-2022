@@ -11,7 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="category") // Ojo con la minuscula que en la tabla está así
-@NamedQuery(name = "findAll", query = "SELECT c FROM Category c")
+// Creamos una named Query, debe tener nombre único
+@NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
 public class Category {
     private long id;
     private String texto;

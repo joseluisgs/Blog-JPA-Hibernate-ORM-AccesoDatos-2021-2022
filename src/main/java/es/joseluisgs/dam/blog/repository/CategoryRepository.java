@@ -13,7 +13,7 @@ public class CategoryRepository implements CrudRespository<Category, Long> {
     public List<Category> findAll()  {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
-        TypedQuery<Category> query = hc.getManager().createNamedQuery("findAll", Category.class);
+        TypedQuery<Category> query = hc.getManager().createNamedQuery("Category.findAll", Category.class);
         List<Category> list = query.getResultList();
         hc.close();
         return list;
