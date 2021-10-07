@@ -1,15 +1,18 @@
 package es.joseluisgs.dam.blog.service;
 
+import es.joseluisgs.dam.blog.dao.Login;
+import es.joseluisgs.dam.blog.dao.User;
 import es.joseluisgs.dam.blog.dto.LoginDTO;
+import es.joseluisgs.dam.blog.dto.UserDTO;
 import es.joseluisgs.dam.blog.mapper.LoginMapper;
-import es.joseluisgs.dam.blog.model.Login;
-import es.joseluisgs.dam.blog.model.User;
 import es.joseluisgs.dam.blog.repository.LoginRepository;
 import es.joseluisgs.dam.blog.repository.UserRepository;
 import es.joseluisgs.dam.blog.utils.Cifrador;
 
+
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,15 +32,22 @@ public class LoginService extends BaseService<Login, Long, LoginRepository> {
     }
 
     public LoginDTO login(String userMail, String userPassword) throws SQLException {
-        User user = getUserByMail(userMail);
-        Cifrador cif = Cifrador.getInstance();
-        if ((user != null) && user.getPassword().equals(cif.SHA256(userPassword))) {
-            // System.out.println("SI");
-            LoginDTO login = mapper.toDTO(repository.save(new Login(user.getId(), LocalDateTime.now(), null)));
-            login.setUser(user);
-            return login;
+        try {
+            User user = getUserByMail(userMail);
+            Cifrador cif = Cifrador.getInstance();
+            if ((user != null) && user.getPassword().equals(cif.SHA256(userPassword))) {
+                // System.out.println("SI");
+                Login insert = new Login();
+                insert.setUser(user);
+                insert.setUltimoAcceso(Timestamp.from(Instant.now()));
+                LoginDTO login = mapper.toDTO(repository.save(insert));
+                login.setUser(user);
+                return login;
+            }
+        } finally {
+            return null;
         }
-        return null;
+
     }
 
     private User getUserByMail(String userMail) throws SQLException {
@@ -45,7 +55,7 @@ public class LoginService extends BaseService<Login, Long, LoginRepository> {
         return service.getUserByMail(userMail);
     }
 
-    public boolean logout(Long id) throws SQLException {
-        return repository.deleteById(id) > 0;
+    public boolean logout(Long userId) throws SQLException {
+        return repository.deleteByUserId(userId);
     }
 }
