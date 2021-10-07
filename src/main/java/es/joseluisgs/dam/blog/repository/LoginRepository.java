@@ -2,6 +2,7 @@ package es.joseluisgs.dam.blog.repository;
 
 import es.joseluisgs.dam.blog.dao.Login;
 import es.joseluisgs.dam.blog.dao.User;
+import es.joseluisgs.dam.blog.database.DataBaseController;
 import es.joseluisgs.dam.blog.manager.HibernateController;
 
 import java.sql.SQLException;
@@ -48,18 +49,22 @@ public class LoginRepository implements CrudRespository<Login, Long> {
 
     @Override
     public Login delete(Login login) throws SQLException {
+        throw new SQLException("Error: Método update no implementado");
+    }
+
+    public boolean deleteByUserId(Long userId) throws SQLException {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
         try {
             hc.getTransaction().begin();
             // Ojo que borrar implica que estemos en la misma sesión y nos puede dar problemas, por eso lo recuperamos otra vez
-            login = hc.getManager().find(Login.class, login.getUserId());
+            Login login = hc.getManager().find(Login.class, userId);
             hc.getManager().remove(login);
             hc.getTransaction().commit();
             hc.close();
-            return login;
+            return true;
         }catch (Exception e) {
-            throw new SQLException("Error LoginRepository al eliminar login con id: " + login.getUserId());
+            throw new SQLException("Error LoginRepository al eliminar login con id: " + userId);
         } finally {
             if (hc.getTransaction().isActive()) {
                 hc.getTransaction().rollback();
@@ -67,4 +72,6 @@ public class LoginRepository implements CrudRespository<Login, Long> {
             hc.close();
         }
     }
+
+
 }
