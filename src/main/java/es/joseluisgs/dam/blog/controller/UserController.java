@@ -4,7 +4,6 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import es.joseluisgs.dam.blog.dto.CategoryDTO;
 import es.joseluisgs.dam.blog.dto.UserDTO;
 import es.joseluisgs.dam.blog.repository.UserRepository;
 import es.joseluisgs.dam.blog.service.UserService;
@@ -27,7 +26,8 @@ public class UserController {
 
         @Override
         public boolean shouldSkipField(FieldAttributes field) {
-            return field.getName().startsWith("password");
+            return field.getName().startsWith("password")
+                    || field.getName().startsWith("posts");
         }
     };
 

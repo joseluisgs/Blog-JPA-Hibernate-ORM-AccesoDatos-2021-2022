@@ -1,7 +1,6 @@
 package es.joseluisgs.dam.blog.service;
 
 import es.joseluisgs.dam.blog.dao.Category;
-
 import es.joseluisgs.dam.blog.dto.CategoryDTO;
 import es.joseluisgs.dam.blog.mapper.CategoryMapper;
 import es.joseluisgs.dam.blog.repository.CategoryRepository;

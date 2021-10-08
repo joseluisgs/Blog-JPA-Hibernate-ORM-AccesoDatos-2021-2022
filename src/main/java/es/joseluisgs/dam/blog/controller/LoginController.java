@@ -4,9 +4,7 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import es.joseluisgs.dam.blog.dao.User;
 import es.joseluisgs.dam.blog.dto.LoginDTO;
-import es.joseluisgs.dam.blog.dto.UserDTO;
 import es.joseluisgs.dam.blog.repository.LoginRepository;
 import es.joseluisgs.dam.blog.service.LoginService;
 

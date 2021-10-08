@@ -3,7 +3,6 @@ package es.joseluisgs.dam.blog.dao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -14,7 +13,8 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="login") // Ojo con la minuscula que en la tabla está así
+@Table(name = "login") // Ojo con la minuscula que en la tabla está así
+// Consulta por si queremos buscar logins por tokens
 @NamedQuery(name = "Login.getByToken", query = "SELECT l FROM Login l WHERE l.token = ?1")
 public class Login {
     private long userId;

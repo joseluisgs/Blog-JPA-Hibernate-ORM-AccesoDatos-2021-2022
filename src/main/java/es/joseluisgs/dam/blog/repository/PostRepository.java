@@ -1,47 +1,47 @@
 package es.joseluisgs.dam.blog.repository;
 
 
-import es.joseluisgs.dam.blog.dao.User;
+import es.joseluisgs.dam.blog.dao.Post;
 import es.joseluisgs.dam.blog.manager.HibernateController;
 
 import javax.persistence.TypedQuery;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserRepository implements CrudRespository<User, Long> {
+public class PostRepository implements CrudRespository<Post, Long> {
     @Override
-    public List<User> findAll() {
+    public List<Post> findAll() {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
-        TypedQuery<User> query = hc.getManager().createNamedQuery("User.findAll", User.class);
-        List<User> list = query.getResultList();
+        TypedQuery<Post> query = hc.getManager().createNamedQuery("Post.findAll", Post.class);
+        List<Post> list = query.getResultList();
         hc.close();
         return list;
     }
 
     @Override
-    public User getById(Long ID) throws SQLException {
+    public Post getById(Long ID) throws SQLException {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
-        User user = hc.getManager().find(User.class, ID);
+        Post post = hc.getManager().find(Post.class, ID);
         hc.close();
-        if (user != null)
-            return user;
-        throw new SQLException("Error UserRepository no existe usuario con ID: " + ID);
+        if (post != null)
+            return post;
+        throw new SQLException("Error PostRepository no existe post con ID: " + ID);
     }
 
     @Override
-    public User save(User user) throws SQLException {
+    public Post save(Post post) throws SQLException {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
         try {
             hc.getTransaction().begin();
-            hc.getManager().persist(user);
+            hc.getManager().persist(post);
             hc.getTransaction().commit();
             hc.close();
-            return user;
+            return post;
         } catch (Exception e) {
-            throw new SQLException("Error UserRepository al insertar usuario en BD");
+            throw new SQLException("Error PostRepository al insertar post en BD");
         } finally {
             if (hc.getTransaction().isActive()) {
                 hc.getTransaction().rollback();
@@ -51,17 +51,17 @@ public class UserRepository implements CrudRespository<User, Long> {
     }
 
     @Override
-    public User update(User user) throws SQLException {
+    public Post update(Post post) throws SQLException {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
         try {
             hc.getTransaction().begin();
-            hc.getManager().merge(user);
+            hc.getManager().merge(post);
             hc.getTransaction().commit();
             hc.close();
-            return user;
+            return post;
         } catch (Exception e) {
-            throw new SQLException("Error UserRepository al actualizar usuario con id: " + user.getId());
+            throw new SQLException("Error PostRepository al actualizar post con id: " + post.getId());
         } finally {
             if (hc.getTransaction().isActive()) {
                 hc.getTransaction().rollback();
@@ -72,19 +72,19 @@ public class UserRepository implements CrudRespository<User, Long> {
     }
 
     @Override
-    public User delete(User user) throws SQLException {
+    public Post delete(Post post) throws SQLException {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
         try {
             hc.getTransaction().begin();
             // Ojo que borrar implica que estemos en la misma sesión y nos puede dar problemas, por eso lo recuperamos otra vez
-            user = hc.getManager().find(User.class, user.getId());
-            hc.getManager().remove(user);
+            post = hc.getManager().find(Post.class, post.getId());
+            hc.getManager().remove(post);
             hc.getTransaction().commit();
             hc.close();
-            return user;
+            return post;
         } catch (Exception e) {
-            throw new SQLException("Error UserRepository al eliminar usuario con id: " + user.getId());
+            throw new SQLException("Error PostRepository al eliminar post con id: " + post.getId());
         } finally {
             if (hc.getTransaction().isActive()) {
                 hc.getTransaction().rollback();
@@ -93,15 +93,13 @@ public class UserRepository implements CrudRespository<User, Long> {
         }
     }
 
-    public User getByEmail(String userMail) throws SQLException {
+    public List<Post> getByUserId(Long userId) {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
-        User user = hc.getManager().createNamedQuery("User.getByMail", User.class)
-                .setParameter(1, userMail)
-                .getSingleResult();
+        List<Post> list = hc.getManager().createNamedQuery("Post.getByUserId", Post.class)
+                .setParameter(1, userId).getResultList();
         hc.close();
-        if (user != null)
-            return user;
-        throw new SQLException("Error UserRepository no existe usuario con Email: " + userMail);
+        return list;
     }
+
 }

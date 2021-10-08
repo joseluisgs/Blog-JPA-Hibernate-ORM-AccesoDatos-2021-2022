@@ -4,10 +4,13 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import es.joseluisgs.dam.blog.dao.Post;
 import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -33,7 +36,7 @@ public class UserDTO {
     // Lista de Comentarios
     //private Set<Comment> comentarios = new HashSet<>();
     // Lista de Posts
-    //private Set<Post> posts = new HashSet<>();
+    private List<Post> posts = new ArrayList<>();
     // Su login activo si lo tiene
     //private Login login;
 

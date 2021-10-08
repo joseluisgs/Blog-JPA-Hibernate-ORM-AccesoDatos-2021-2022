@@ -149,8 +149,9 @@ public class DataBaseController {
 
     /**
      * Realiza una consulta de tipo insert de manera "preparada" con los parametros opcionales si son encesarios
+     *
      * @param insertSQL consulta SQL de tipo insert
-     * @param params parámetros de la consulta parametrizada
+     * @param params    parámetros de la consulta parametrizada
      * @return Clave del registro insertado
      * @throws SQLException tabla no existe o no se ha podido realizar la operación
      */
@@ -167,8 +168,9 @@ public class DataBaseController {
 
     /**
      * Realiza una consulta de tipo update de manera "preparada" con los parametros opcionales si son encesarios
+     *
      * @param updateSQL consulta SQL de tipo update
-     * @param params parámetros de la consulta parametrizada
+     * @param params    parámetros de la consulta parametrizada
      * @return número de registros actualizados
      * @throws SQLException tabla no existe o no se ha podido realizar la operación
      */
@@ -178,8 +180,9 @@ public class DataBaseController {
 
     /**
      * Realiza una consulta de tipo delete de manera "preparada" con los parametros opcionales si son encesarios
+     *
      * @param deleteSQL consulta SQL de tipo delete
-     * @param params parámetros de la consulta parametrizada
+     * @param params    parámetros de la consulta parametrizada
      * @return número de registros eliminados
      * @throws SQLException tabla no existe o no se ha podido realizar la operación
      */
@@ -189,8 +192,9 @@ public class DataBaseController {
 
     /**
      * Realiza una consulta de tipo update, es decir que modifca los datos, de manera "preparada" con los parametros opcionales si son encesarios
+     *
      * @param genericSQL consulta SQL de tipo update, delete, creted, etc.. que modifica los datos
-     * @param params parámetros de la consulta parametrizada
+     * @param params     parámetros de la consulta parametrizada
      * @return número de registros eliminados
      * @throws SQLException tabla no existe o no se ha podido realizar la operación
      */
