@@ -127,6 +127,7 @@ public class Post {
 
     @Override
     // No es obligatorio, pero al hacerlo podemos tener problemas con la recursividad de las llamadas
+    // Post es mi entidad fuerte, voy a sacra todo de ella porque si la debo procesar en una interfaz lo veo todo de ella
     public String toString() {
         return "Post{" +
                 "id=" + id +

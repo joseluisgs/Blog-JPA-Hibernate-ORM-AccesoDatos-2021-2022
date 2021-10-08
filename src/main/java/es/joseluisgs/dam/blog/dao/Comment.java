@@ -103,7 +103,7 @@ public class Comment {
                 ", uuid='" + uuid + '\'' +
                 // Cuidado con esto que si no los post que tengan comentarios entra en recursividad
                 ", user=" + user +
-                ", post= post=Post{id:" + post.getId() + ", titulo=" + post.getTitulo() +
+                ", post= Post{id:" + post.getId() + ", titulo=" + post.getTitulo() + ", " + "url=" + post.getUrl() +
                 "}}";
     }
 }

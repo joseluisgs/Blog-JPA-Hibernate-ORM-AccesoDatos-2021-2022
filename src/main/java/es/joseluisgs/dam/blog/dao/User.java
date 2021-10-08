@@ -145,11 +145,12 @@ public class User {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                // ", password='" + password + '\'' + Evitamos
                 ", fechaRegistro=" + fechaRegistro +
                 ", login=" + login +
                 // Cuidado aqui con las llamadas recursivas No me interesa imprimir los post del usuario, pueden ser muchos
-                // ", posts=" + posts +
+                 // ", posts=" + posts + // Podriamos quitarlos para no verlos
+                // Tampoco saco los comentarios
                 '}';
     }
 }

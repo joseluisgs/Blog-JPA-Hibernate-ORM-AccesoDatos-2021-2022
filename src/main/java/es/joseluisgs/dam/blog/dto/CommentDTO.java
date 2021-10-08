@@ -18,19 +18,6 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class CommentDTO {
-    ExclusionStrategy strategy = new ExclusionStrategy() {
-        @Override
-        public boolean shouldSkipClass(Class<?> clazz) {
-            return false;
-        }
-
-        @Override
-        public boolean shouldSkipField(FieldAttributes field) {
-            return field.getName().startsWith("password")
-                    || field.getName().startsWith("user_id")
-                    || field.getName().startsWith("category_id");
-        }
-    };
     private Long id;
     private String texto;
     private Timestamp fechaPublicacion;
@@ -47,9 +34,22 @@ public class CommentDTO {
 
     public String toJSON() {
         final Gson prettyGson = new GsonBuilder()
-                .addSerializationExclusionStrategy(strategy)
+                // .addSerializationExclusionStrategy(strategy)
                 .setPrettyPrinting()
                 .create();
         return prettyGson.toJson(this);
+    }
+
+    @Override
+    // DE comentario nos interesa saber su autor, porque el foro sabemos cual si accedemos por foro
+    // Asi que en vez d eimprimirlo todo, solo haremos cosas que nos interese
+    public String toString() {
+        return "CommentDTO{" +
+                "id=" + id +
+                ", texto='" + texto + '\'' +
+                ", fechaPublicacion=" + fechaPublicacion +
+                ", user=" + user +
+                ", post= Post{id:" + post.getId() + ", titulo=" + post.getTitulo() + ", " + "url=" + post.getUrl() +
+                "}}";
     }
 }

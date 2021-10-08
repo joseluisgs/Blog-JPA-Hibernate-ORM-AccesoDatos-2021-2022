@@ -245,7 +245,7 @@ public class Blog {
         CommentController commentController = CommentController.getInstance();
 
         System.out.println("GET Todos los Comentarios");
-        System.out.println(commentController.getAllCommentsJSON());
+        System.out.println(commentController.getAllComments());
 
         System.out.println("FIN COMENTARIOS");
     }

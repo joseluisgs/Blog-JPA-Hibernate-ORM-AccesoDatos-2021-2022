@@ -73,8 +73,8 @@ public class UserDTO {
                 ", nombre='" + nombre + '\'' +
                 ", email='" + email + '\'' +
                 ", fechaRegistro=" + fechaRegistro +
-                ", posts=" + posts +
-                ", password='" + password + '\'' +
+                // ", posts=" + posts + // No voy a imprimir los posts poprque son muy largos
+                //", password='" + password + '\'' + // Así no sale el password
                 '}';
     }
 }
