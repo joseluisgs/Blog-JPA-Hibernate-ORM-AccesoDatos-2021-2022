@@ -26,7 +26,7 @@ public class App {
         blog.Users();
 
         // Login
-        // blog.Login();
+        blog.Login();
 
         // Posts
         // blog.Posts();
