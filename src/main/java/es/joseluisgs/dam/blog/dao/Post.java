@@ -116,7 +116,7 @@ public class Post {
     }
 
     // Pongo EAGER porque están en contexto diferentes y debememos conseguirlo
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = CascadeType. REMOVE) // cascade = CascadeType.ALL
     public Collection<Comment> getComments() {
         return comments;
     }

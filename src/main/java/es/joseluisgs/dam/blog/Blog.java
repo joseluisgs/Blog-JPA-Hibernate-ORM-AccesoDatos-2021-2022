@@ -4,9 +4,11 @@ import es.joseluisgs.dam.blog.controller.*;
 import es.joseluisgs.dam.blog.dao.Comment;
 import es.joseluisgs.dam.blog.database.DataBaseController;
 import es.joseluisgs.dam.blog.dto.CategoryDTO;
+import es.joseluisgs.dam.blog.dto.CommentDTO;
 import es.joseluisgs.dam.blog.dto.PostDTO;
 import es.joseluisgs.dam.blog.dto.UserDTO;
 import es.joseluisgs.dam.blog.mapper.CategoryMapper;
+import es.joseluisgs.dam.blog.mapper.PostMapper;
 import es.joseluisgs.dam.blog.mapper.UserMapper;
 import es.joseluisgs.dam.blog.repository.CommentRepository;
 import es.joseluisgs.dam.blog.service.CommentService;
@@ -246,6 +248,58 @@ public class Blog {
 
         System.out.println("GET Todos los Comentarios");
         System.out.println(commentController.getAllComments());
+
+        System.out.println("GET Comentario con ID = 2");
+        System.out.println(commentController.getCommentById(2L));
+
+        System.out.println("POST Insertando Comentario 1");
+
+        UserController userController = UserController.getInstance();
+        UserDTO user = userController.getUserByIdOptional(1L).get(); // Sé que el id existe ...
+        // Y un Post
+        PostController postController = PostController.getInstance();
+        PostDTO post = postController.getPostByIdOptional(1L).get();
+
+        // Neceistamos mapearlos a objetos y no DTO, no debería ser así y trabajar con DTO completos, pero no es tan crucial para el CRUD
+        UserMapper userMapper = new UserMapper();
+        PostMapper postMapper = new PostMapper();
+        CommentDTO commentDTO = CommentDTO.builder()
+                .texto("Comentario " + Instant.now().toString())
+                .user(userMapper.fromDTO(user))
+                .post(postMapper.fromDTO(post))
+                .build();
+        System.out.println(commentController.postComment(commentDTO));
+
+        System.out.println("POST Insertando Comentario 2");
+
+        userController = UserController.getInstance();
+        user = userController.getUserByIdOptional(1L).get(); // Sé que el id existe ...
+        // Y un Post
+        postController = PostController.getInstance();
+        post = postController.getPostByIdOptional(3L).get();
+
+        // Neceistamos mapearlos a objetos y no DTO, no debería ser así y trabajar con DTO completos, pero no es tan crucial para el CRUD
+        userMapper = new UserMapper();
+        postMapper = new PostMapper();
+        commentDTO = CommentDTO.builder()
+                .texto("Comentario " + Instant.now().toString())
+                .user(userMapper.fromDTO(user))
+                .post(postMapper.fromDTO(post))
+                .build();
+        System.out.println(commentController.postComment(commentDTO));
+
+        System.out.println("UPDATE Comentario con ID 5");
+        Optional<CommentDTO> optionalCommentDTO = commentController.getCommentByIdOptional(6L);
+        if (optionalCommentDTO.isPresent()) {
+            optionalCommentDTO.get().setTexto("Update " + LocalDateTime.now());
+            System.out.println(commentController.updateComment(optionalCommentDTO.get()));
+        }
+
+        System.out.println("DELETE Comentario con ID 7");
+        optionalCommentDTO = commentController.getCommentByIdOptional(7L);
+        if (optionalCommentDTO.isPresent()) {
+            System.out.println(commentController.deleteComment(optionalCommentDTO.get()));
+        }
 
         System.out.println("FIN COMENTARIOS");
     }

@@ -129,7 +129,7 @@ public class User {
 
     // La Cascada
     // http://openjpa.apache.org/builds/2.4.0/apache-openjpa/docs/jpa_overview_meta_field.html#jpa_overview_meta_cascade
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE) // cascade = CascadeType.ALL
     public Collection<Comment> getComments() {
         return comments;
     }

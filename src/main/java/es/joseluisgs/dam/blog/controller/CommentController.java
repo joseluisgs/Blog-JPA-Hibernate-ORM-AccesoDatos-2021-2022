@@ -1,11 +1,13 @@
 package es.joseluisgs.dam.blog.controller;
 
 import es.joseluisgs.dam.blog.dto.CommentDTO;
+import es.joseluisgs.dam.blog.dto.PostDTO;
 import es.joseluisgs.dam.blog.repository.CommentRepository;
 import es.joseluisgs.dam.blog.service.CommentService;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class CommentController {
     private static CommentController controller = null;
@@ -69,6 +71,15 @@ public class CommentController {
         } catch (SQLException e) {
             System.err.println("Error CommentController en deleteComment: " + e.getMessage());
             return null;
+        }
+    }
+
+    public Optional<CommentDTO> getCommentByIdOptional(Long id) {
+        try {
+            return Optional.of(commentService.getCommentById(id));
+        } catch (SQLException e) {
+            System.err.println("Error CommentController en getCommentById: " + e.getMessage());
+            return Optional.empty();
         }
     }
 

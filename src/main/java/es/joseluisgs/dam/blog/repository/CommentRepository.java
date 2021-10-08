@@ -7,6 +7,7 @@ import es.joseluisgs.dam.blog.manager.HibernateController;
 import javax.persistence.TypedQuery;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 public class CommentRepository implements CrudRespository<Comment, Long> {
     @Override
@@ -32,6 +33,8 @@ public class CommentRepository implements CrudRespository<Comment, Long> {
 
     @Override
     public Comment save(Comment comment) throws SQLException {
+        UUID uuid = UUID.randomUUID();
+        comment.setUuid(uuid.toString());
         HibernateController hc = HibernateController.getInstance();
         hc.open();
         try {
@@ -52,6 +55,8 @@ public class CommentRepository implements CrudRespository<Comment, Long> {
 
     @Override
     public Comment update(Comment comment) throws SQLException {
+        UUID uuid = UUID.randomUUID();
+        comment.setUuid(uuid.toString());
         HibernateController hc = HibernateController.getInstance();
         hc.open();
         try {
