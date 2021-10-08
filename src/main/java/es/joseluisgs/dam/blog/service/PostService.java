@@ -45,4 +45,9 @@ public class PostService extends BaseService<Post, Long, PostRepository> {
         Post post = this.delete(mapper.fromDTO(postDTO));
         return mapper.toDTO(post);
     }
+
+    public List<PostDTO> getPostsByUserId(Long userId)  {
+        // Obtenemos la lista
+        return mapper.toDTO(repository.getByUserId(userId));
+    }
 }

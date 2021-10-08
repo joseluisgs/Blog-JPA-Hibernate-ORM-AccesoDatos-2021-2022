@@ -13,7 +13,9 @@ import java.util.Objects;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+// Consulta para obtener todos
 @NamedQuery(name = "Post.findAll", query = "SELECT p FROM Post p")
+// Consulta para obtener todos los post dado el id de un usuario
 @NamedQuery(name = "Post.getByUserId", query = "SELECT p FROM Post p WHERE p.user.id = ?1")
 @Table(name="post") // Ojo con la minuscula que en la tabla está así
 public class Post {

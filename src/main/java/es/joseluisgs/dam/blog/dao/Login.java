@@ -15,6 +15,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name="login") // Ojo con la minuscula que en la tabla está así
+// Consulta por si queremos buscar logins por tokens
 @NamedQuery(name = "Login.getByToken", query = "SELECT l FROM Login l WHERE l.token = ?1")
 public class Login {
     private long userId;

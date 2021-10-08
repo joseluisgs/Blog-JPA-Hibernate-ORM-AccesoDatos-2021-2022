@@ -2,6 +2,7 @@ package es.joseluisgs.dam.blog.repository;
 
 
 import es.joseluisgs.dam.blog.dao.Post;
+import es.joseluisgs.dam.blog.dao.User;
 import es.joseluisgs.dam.blog.manager.HibernateController;
 
 import javax.persistence.TypedQuery;
@@ -91,6 +92,15 @@ public class PostRepository implements CrudRespository<Post, Long> {
             }
             hc.close();
         }
+    }
+
+    public List<Post> getByUserId(Long userId)  {
+        HibernateController hc = HibernateController.getInstance();
+        hc.open();
+        List<Post> list = hc.getManager().createNamedQuery("Post.getByUserId", Post.class)
+                .setParameter(1, userId).getResultList();
+        hc.close();
+        return list;
     }
 
 }

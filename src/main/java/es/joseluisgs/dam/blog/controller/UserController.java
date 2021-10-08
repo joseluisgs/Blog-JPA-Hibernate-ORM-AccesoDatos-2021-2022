@@ -27,7 +27,8 @@ public class UserController {
 
         @Override
         public boolean shouldSkipField(FieldAttributes field) {
-            return field.getName().startsWith("password");
+            return field.getName().startsWith("password")
+                    || field.getName().startsWith("posts");
         }
     };
 

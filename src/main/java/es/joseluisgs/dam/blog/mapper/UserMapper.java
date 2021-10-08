@@ -1,7 +1,10 @@
 package es.joseluisgs.dam.blog.mapper;
 
+import es.joseluisgs.dam.blog.dao.Post;
 import es.joseluisgs.dam.blog.dao.User;
 import es.joseluisgs.dam.blog.dto.UserDTO;
+
+import java.util.List;
 
 public class UserMapper extends BaseMapper<User, UserDTO> {
     @Override
@@ -25,6 +28,7 @@ public class UserMapper extends BaseMapper<User, UserDTO> {
                 .email(item.getEmail())
                 .password(item.getPassword())
                 .fechaRegistro(item.getFechaRegistro())
+                .posts((List<Post>) item.getPosts())
                 .build();
     }
 }

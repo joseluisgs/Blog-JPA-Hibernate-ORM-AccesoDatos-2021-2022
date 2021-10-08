@@ -17,8 +17,11 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user") // Ojo con la minuscula que en la tabla está así
+// Todos los usuarios
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+// Todos los usuarios con emial indicados
 @NamedQuery(name = "User.getByMail", query = "SELECT u FROM User u WHERE u.email = ?1")
+// Todos los post de un usuario
 @NamedQuery(name = "User.getMyPosts", query = "SELECT u.posts FROM User u WHERE u.id = ?1")
 public class User {
     private long id;
@@ -125,13 +128,13 @@ public class User {
         cambia el comportamiento default con @OneToMany(fetch=FetchType.EAGER).
         Esto hace que friends se instancie junto con el resto de los atributos.
      */
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     public Collection<Post> getPosts() {
         return posts;
     }
 
     // No es necesario si no queremos cambiar los post desde usuario
-    public void setPosts(Collection<Post> postsById) {
-        this.posts = postsById;
+    public void setPosts(Collection<Post> posts) {
+        this.posts = posts;
     }
 }

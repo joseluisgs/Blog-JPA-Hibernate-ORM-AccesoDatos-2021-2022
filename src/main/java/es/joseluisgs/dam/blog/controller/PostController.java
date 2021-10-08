@@ -4,6 +4,7 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import es.joseluisgs.dam.blog.dao.Post;
 import es.joseluisgs.dam.blog.dto.CategoryDTO;
 import es.joseluisgs.dam.blog.dto.PostDTO;
 import es.joseluisgs.dam.blog.repository.PostRepository;
@@ -119,5 +120,10 @@ public class PostController {
             System.err.println("Error PostController en getPostById: " + e.getMessage());
             return Optional.empty();
         }
+    }
+
+    public List<PostDTO> getPostByUserId(Long userId) {
+        // Vamos a devolver el JSON de las categorías
+        return postService.getPostsByUserId(userId);
     }
 }
