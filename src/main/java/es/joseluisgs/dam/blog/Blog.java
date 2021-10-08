@@ -167,4 +167,10 @@ public class Blog {
 
         System.out.println("FIN LOGIN");
     }
+
+    public void Posts() {
+        System.out.println("INICIO POSTS");
+
+        System.out.println("FIN POSTS");
+    }
 }
