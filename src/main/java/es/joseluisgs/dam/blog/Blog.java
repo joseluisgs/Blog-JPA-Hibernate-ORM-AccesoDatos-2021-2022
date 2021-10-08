@@ -235,7 +235,12 @@ public class Blog {
         // Por cierto, prueba quitando el FetchType.EAGER de getPost de User y mira que pasa. ¿Lo entiendes?
         user.getPosts().forEach(System.out::println);
 
-
         System.out.println("FIN POSTS");
+    }
+
+    public void Comments() {
+        System.out.println("INICIO COMENTARIOS");
+
+        System.out.println("FIN COMENTARIOS");
     }
 }
