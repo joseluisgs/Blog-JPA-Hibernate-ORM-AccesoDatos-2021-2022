@@ -8,11 +8,15 @@ import es.joseluisgs.dam.blog.dao.Post;
 import es.joseluisgs.dam.blog.dao.User;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
-@Data
+
 @Builder
+@Getter
+@Setter
 public class CommentDTO {
     ExclusionStrategy strategy = new ExclusionStrategy() {
         @Override

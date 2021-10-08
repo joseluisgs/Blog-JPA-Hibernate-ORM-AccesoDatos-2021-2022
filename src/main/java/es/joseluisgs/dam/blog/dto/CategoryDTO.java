@@ -4,9 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
 @Builder
+@Getter
+@Setter
 public class CategoryDTO {
     private Long id;
     private String texto;
@@ -25,5 +28,10 @@ public class CategoryDTO {
     public String toJSON() {
         final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
         return prettyGson.toJson(this);
+    }
+
+    @Override
+    public String toString() {
+        return toJSON();
     }
 }

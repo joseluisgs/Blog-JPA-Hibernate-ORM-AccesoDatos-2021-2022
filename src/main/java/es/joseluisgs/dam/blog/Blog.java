@@ -1,9 +1,6 @@
 package es.joseluisgs.dam.blog;
 
-import es.joseluisgs.dam.blog.controller.CategoryController;
-import es.joseluisgs.dam.blog.controller.LoginController;
-import es.joseluisgs.dam.blog.controller.PostController;
-import es.joseluisgs.dam.blog.controller.UserController;
+import es.joseluisgs.dam.blog.controller.*;
 import es.joseluisgs.dam.blog.dao.Comment;
 import es.joseluisgs.dam.blog.database.DataBaseController;
 import es.joseluisgs.dam.blog.dto.CategoryDTO;
@@ -12,6 +9,7 @@ import es.joseluisgs.dam.blog.dto.UserDTO;
 import es.joseluisgs.dam.blog.mapper.CategoryMapper;
 import es.joseluisgs.dam.blog.mapper.UserMapper;
 import es.joseluisgs.dam.blog.repository.CommentRepository;
+import es.joseluisgs.dam.blog.service.CommentService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -72,34 +70,34 @@ public class Blog {
         CategoryController categoryController = CategoryController.getInstance();
 
         System.out.println("GET Todas las categorías");
-        System.out.println(categoryController.getAllCategoriesJSON());
+        System.out.println(categoryController.getAllCategories().toString());
 
         System.out.println("GET Categoría con ID = 2");
-        System.out.println(categoryController.getCategoryByIdJSON(2L));
+        System.out.println(categoryController.getCategoryById(2L).toJSON());
 
         System.out.println("POST Categoría");
         CategoryDTO categoryDTO = CategoryDTO.builder()
                 .texto("Insert " + LocalDateTime.now())
                 .build();
-        System.out.println(categoryController.postCategoryJSON(categoryDTO));
+        System.out.println(categoryController.postCategory(categoryDTO).toString());
 
         categoryDTO = CategoryDTO.builder()
                 .texto("Insert Otra " + LocalDateTime.now())
                 .build();
-        System.out.println(categoryController.postCategoryJSON(categoryDTO));
+        System.out.println(categoryController.postCategory(categoryDTO).toString());
 
         System.out.println("UPDATE Categoría con ID 4");
-        Optional<CategoryDTO> optionalCategoryDTO = categoryController.getCategoryById(4L);
+        Optional<CategoryDTO> optionalCategoryDTO = categoryController.getCategoryByIdOptional(4L);
         if (optionalCategoryDTO.isPresent()) {
             optionalCategoryDTO.get().setTexto("Update " + LocalDateTime.now());
-            System.out.println(categoryController.updateCategoryJSON(optionalCategoryDTO.get()));
+            System.out.println(categoryController.updateCategory(optionalCategoryDTO.get()).toString());
         }
 
         System.out.println("DELETE Categoría con ID 6");
-        optionalCategoryDTO = categoryController.getCategoryById(6L);
+        optionalCategoryDTO = categoryController.getCategoryByIdOptional(6L);
         if (optionalCategoryDTO.isPresent()) {
             System.out.println(optionalCategoryDTO.get());
-            System.out.println(categoryController.deleteCategoryJSON(optionalCategoryDTO.get()));
+            System.out.println(categoryController.deleteCategory(optionalCategoryDTO.get()).toString());
         }
 
         System.out.println("FIN CATEGORIAS");
@@ -188,7 +186,7 @@ public class Blog {
         UserDTO user = userController.getUserById(1L).get(); // Sé que el id existe ...
         // Y una categoría
         CategoryController categoryController = CategoryController.getInstance();
-        CategoryDTO category = categoryController.getCategoryById(1L).get();
+        CategoryDTO category = categoryController.getCategoryByIdOptional(1L).get();
 
         // Neceistamos mapearlos a objetos y no DTO, no debería ser así y trabajar con DTO completos, pero no es tan crucial para el CRUD
         UserMapper userMapper = new UserMapper();
@@ -205,7 +203,7 @@ public class Blog {
         // System.out.println(postDTO);
         System.out.println(postController.postPostJSON(postDTO));
         user = userController.getUserById(1L).get();
-        category = categoryController.getCategoryById(1L).get();
+        category = categoryController.getCategoryByIdOptional(1L).get();
         postDTO = PostDTO.builder()
                 .titulo("Insert Otro" + LocalDateTime.now())
                 .contenido("Contenido Otro" + Instant.now().toString())
@@ -243,8 +241,10 @@ public class Blog {
     public void Comments() {
         System.out.println("INICIO COMENTARIOS");
 
-        CommentRepository r = new CommentRepository();
-        r.findAll().forEach(System.out::println);
+        CommentController commentController = CommentController.getInstance();
+
+        System.out.println("GET Todos los Comentarios");
+        System.out.println(commentController.getAllCommentsJSON());
 
         System.out.println("FIN COMENTARIOS");
     }
