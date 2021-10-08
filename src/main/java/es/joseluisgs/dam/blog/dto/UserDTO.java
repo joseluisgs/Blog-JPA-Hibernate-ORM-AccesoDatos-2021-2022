@@ -5,6 +5,7 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
+import es.joseluisgs.dam.blog.dao.Comment;
 import es.joseluisgs.dam.blog.dao.Post;
 import lombok.Builder;
 import lombok.Data;
@@ -34,7 +35,7 @@ public class UserDTO {
 
     // TODO Bidireccionalidad
     // Lista de Comentarios
-    //private Set<Comment> comentarios = new HashSet<>();
+    private Set<Comment> comentarios = new HashSet<>();
     // Lista de Posts
     private Set<Post> posts = new HashSet<>();
     // Su login activo si lo tiene

@@ -301,6 +301,31 @@ public class Blog {
             System.out.println(commentController.deleteComment(optionalCommentDTO.get()));
         }
 
+        System.out.println("GET Dado un Post Obtener sus Comentarios Post --> Comentarios");
+        postController.getPostById(2L).getComments().forEach(System.out::println);
+
+        System.out.println("GET Dado un usuario obtener sus comentarios Usuario --> Comentarios");
+        userController.getUserById(1L).getComentarios().forEach(System.out::println);
+
+        System.out.println("GET Dado un comentario saber su Post Comentario --> Post");
+        System.out.println(commentController.getCommentById(2L).getPost());
+
+        System.out.println("GET Dado un comentario saber su Autor Comentario --> Comentario");
+        System.out.println(commentController.getCommentById(2L).getUser());
+
+        System.out.println("DELETE Borrrando un post se borran sus comentarios? Post --> Comentario"); // Cascada
+        Optional<PostDTO> optionalPostDTO = postController.getPostByIdOptional(4L);
+        if (optionalPostDTO.isPresent()) {
+            System.out.println(postController.deletePost(optionalPostDTO.get()));
+        }
+
+        System.out.println("DELETE Borrrando un usuario se borran comentarios User --> Comentarios"); // Cascada
+        // No, porque no puedo borrar un usuario si tiene un post.
+        Optional<UserDTO> optionalUserDTO = userController.getUserByIdOptional(1L);
+        if (optionalUserDTO.isPresent()) {
+            System.out.println(userController.deleteUser(optionalUserDTO.get()));
+        }
+
         System.out.println("FIN COMENTARIOS");
     }
 }
