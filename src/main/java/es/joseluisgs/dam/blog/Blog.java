@@ -7,7 +7,10 @@ import es.joseluisgs.dam.blog.controller.UserController;
 import es.joseluisgs.dam.blog.dao.Category;
 import es.joseluisgs.dam.blog.database.DataBaseController;
 import es.joseluisgs.dam.blog.dto.CategoryDTO;
+import es.joseluisgs.dam.blog.dto.PostDTO;
 import es.joseluisgs.dam.blog.dto.UserDTO;
+import es.joseluisgs.dam.blog.mapper.CategoryMapper;
+import es.joseluisgs.dam.blog.mapper.UserMapper;
 import es.joseluisgs.dam.blog.repository.CategoryRepository;
 import es.joseluisgs.dam.blog.repository.PostRepository;
 import es.joseluisgs.dam.blog.service.PostService;
@@ -178,6 +181,56 @@ public class Blog {
 
         System.out.println("GET Todos los Post");
         System.out.println(postController.getAllPostJSON());
+
+        System.out.println("GET Post con ID = 2");
+        System.out.println(postController.getPostByIdJSON(2L));
+
+        System.out.println("POST Insertando Post");
+        // Lo primero que necesito es un usuario...
+        UserController userController = UserController.getInstance();
+        UserDTO user = userController.getUserById(1L).get(); // Sé que el id existe ...
+        // Y una categoría
+        CategoryController categoryController = CategoryController.getInstance();
+        CategoryDTO category = categoryController.getCategoryById(1L).get();
+
+        // Neceistamos mapearlos a objetos y no DTO, no debería ser así y trabajar con DTO completos, pero no es tan crucial para el CRUD
+        UserMapper userMapper = new UserMapper();
+        CategoryMapper categoryMapper = new CategoryMapper();
+
+        PostDTO postDTO = PostDTO.builder()
+                .titulo("Insert " + LocalDateTime.now().toString())
+                .contenido("Contenido " + Instant.now().toString())
+                .url("http://" + Math.random() + ".dominio.com")
+                .user(userMapper.fromDTO(user))
+                .category(categoryMapper.fromDTO(category))
+                .build();
+
+        // System.out.println(postDTO);
+        System.out.println(postController.postPostJSON(postDTO));
+        user = userController.getUserById(1L).get();
+        category = categoryController.getCategoryById(1L).get();
+        postDTO = PostDTO.builder()
+                .titulo("Insert Otro" + LocalDateTime.now().toString())
+                .contenido("Contenido Otro" + Instant.now().toString())
+                .url("http://" + Math.random() + ".dominio.com")
+                .user(userMapper.fromDTO(user))
+                .category(categoryMapper.fromDTO(category))
+                .build();
+        System.out.println(postController.postPostJSON(postDTO));
+
+        System.out.println("UPDATE Post con ID 5");
+        Optional<PostDTO> optionalPostDTO = postController.getPostById(5L);
+        if(optionalPostDTO.isPresent()) {
+            optionalPostDTO.get().setTitulo("Update " + LocalDateTime.now().toString());
+            optionalPostDTO.get().setContenido("emailUpdate" + LocalDateTime.now().toString() + "@mail.com");
+            System.out.println(postController.updatePostJSON(optionalPostDTO.get()));
+        }
+
+        System.out.println("DELETE Post con ID 6");
+       optionalPostDTO = postController.getPostById(5L);
+        if(optionalPostDTO.isPresent()) {
+            System.out.println(postController.deletePostJSON(optionalPostDTO.get()));
+        }
 
         System.out.println("FIN POSTS");
     }

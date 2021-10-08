@@ -4,12 +4,14 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import es.joseluisgs.dam.blog.dto.CategoryDTO;
 import es.joseluisgs.dam.blog.dto.PostDTO;
 import es.joseluisgs.dam.blog.repository.PostRepository;
 import es.joseluisgs.dam.blog.service.PostService;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class PostController {
     private static PostController controller = null;
@@ -110,14 +112,12 @@ public class PostController {
         }
     }
 
-    public List<PostDTO> getAllPost() {
-        // Vamos a devolver el JSON de las categorías
+    public Optional<PostDTO> getPostById(Long id) {
         try {
-            return postService.getAllPosts();
+            return Optional.of(postService.getPostById(id));
         } catch (SQLException e) {
-            System.err.println("Error PostController en getAllPots: " + e.getMessage());
-            // return "Error PostController en getAllPost: " + e.getMessage();
-            return null;
+            System.err.println("Error PostController en getPostById: " + e.getMessage());
+            return Optional.empty();
         }
     }
 }
