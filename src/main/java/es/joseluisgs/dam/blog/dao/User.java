@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
 import java.util.Objects;
 
 @Data
@@ -17,6 +18,7 @@ import java.util.Objects;
 @Table(name="user") // Ojo con la minuscula que en la tabla está así
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 @NamedQuery(name = "User.getByMail", query = "SELECT u FROM User u WHERE u.email = ?1")
+@NamedQuery(name = "User.getMyPosts", query = "SELECT u.posts FROM User u WHERE u.id = ?1")
 public class User {
     private long id;
     private String nombre;
@@ -24,6 +26,7 @@ public class User {
     private String password;
     private Date fechaRegistro;
     private Login login;
+    private Collection<Post> posts;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -98,5 +101,15 @@ public class User {
 
     public void setLogin(Login loginById) {
         this.login = loginById;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public Collection<Post> getPosts() {
+        return posts;
+    }
+
+    // No es necesario si no queremos cambiar los post desde usuario
+    public void setPosts(Collection<Post> postsById) {
+        this.posts = postsById;
     }
 }
