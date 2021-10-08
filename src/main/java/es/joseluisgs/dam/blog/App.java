@@ -29,9 +29,9 @@ public class App {
         blog.Login();
 
         // Posts
-        // blog.Posts();
+        blog.Posts();
 
         // Comments
-        //blog.Comments();
+        blog.Comments();
     }
 }

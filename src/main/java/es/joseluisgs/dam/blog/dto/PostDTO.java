@@ -56,4 +56,21 @@ public class PostDTO {
                 .create();
         return prettyGson.toJson(this);
     }
+
+    @Override
+    public String toString() {
+        return "PostDTO{" +
+                "strategy=" + strategy +
+                ", id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", url='" + url + '\'' +
+                ", contenido='" + contenido + '\'' +
+                ", fechaPublicacion=" + fechaPublicacion +
+                ", user=" + user +
+                ", category=" + category +
+                ", user_id=" + user_id +
+                ", category_id=" + category_id +
+                ", comments=" + comments +
+                '}';
+    }
 }

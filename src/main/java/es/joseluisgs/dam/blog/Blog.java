@@ -176,12 +176,12 @@ public class Blog {
         PostController postController = PostController.getInstance();
 
         System.out.println("GET Todos los Post");
-        System.out.println(postController.getAllPostJSON());
+        System.out.println(postController.getAllPost());
 
         System.out.println("GET Post con ID = 2");
-        System.out.println(postController.getPostByIdJSON(2L));
+        System.out.println(postController.getPostById(2L));
 
-        System.out.println("POST Insertando Post");
+        System.out.println("POST Insertando Post 1");
         // Lo primero que necesito es un usuario...
         UserController userController = UserController.getInstance();
         UserDTO user = userController.getUserByIdOptional(1L).get(); // Sé que el id existe ...
@@ -193,6 +193,7 @@ public class Blog {
         UserMapper userMapper = new UserMapper();
         CategoryMapper categoryMapper = new CategoryMapper();
 
+        System.out.println("POST Insertando Post 2");
         PostDTO postDTO = PostDTO.builder()
                 .titulo("Insert " + LocalDateTime.now())
                 .contenido("Contenido " + Instant.now().toString())
@@ -201,8 +202,7 @@ public class Blog {
                 .category(categoryMapper.fromDTO(category))
                 .build();
 
-        // System.out.println(postDTO);
-        System.out.println(postController.postPostJSON(postDTO));
+        System.out.println(postController.postPost(postDTO));
         user = userController.getUserByIdOptional(1L).get();
         category = categoryController.getCategoryByIdOptional(1L).get();
         postDTO = PostDTO.builder()
@@ -212,20 +212,20 @@ public class Blog {
                 .user(userMapper.fromDTO(user))
                 .category(categoryMapper.fromDTO(category))
                 .build();
-        System.out.println(postController.postPostJSON(postDTO));
+        System.out.println(postController.postPost(postDTO));
 
         System.out.println("UPDATE Post con ID 5");
-        Optional<PostDTO> optionalPostDTO = postController.getPostById(5L);
+        Optional<PostDTO> optionalPostDTO = postController.getPostByIdOptional(5L);
         if (optionalPostDTO.isPresent()) {
             optionalPostDTO.get().setTitulo("Update " + LocalDateTime.now());
             optionalPostDTO.get().setContenido("emailUpdate" + LocalDateTime.now() + "@mail.com");
-            System.out.println(postController.updatePostJSON(optionalPostDTO.get()));
+            System.out.println(postController.updatePost(optionalPostDTO.get()));
         }
 
         System.out.println("DELETE Post con ID 6");
-        optionalPostDTO = postController.getPostById(5L);
+        optionalPostDTO = postController.getPostByIdOptional(6L);
         if (optionalPostDTO.isPresent()) {
-            System.out.println(postController.deletePostJSON(optionalPostDTO.get()));
+            System.out.println(postController.deletePost(optionalPostDTO.get()));
         }
 
         System.out.println("GET By Post con User ID 1 usando la Relación Post --> Usuario");

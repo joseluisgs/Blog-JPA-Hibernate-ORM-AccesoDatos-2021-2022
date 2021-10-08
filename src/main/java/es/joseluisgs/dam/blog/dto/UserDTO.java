@@ -23,20 +23,19 @@ import java.util.Set;
 @Setter
 // Exposé expone solo los campso que queramos en el JSON
 public class UserDTO {
-    @Expose
+    // @Expose
     private Long id;
-    @Expose
+    // @Expose
     private String nombre;
-    @Expose
+    // @Expose
     private String email;
-    @Expose
+    // @Expose
     private Date fechaRegistro;
 
     // TODO Bidireccionalidad
     // Lista de Comentarios
     //private Set<Comment> comentarios = new HashSet<>();
     // Lista de Posts
-    @Expose
     private Set<Post> posts = new HashSet<>();
     // Su login activo si lo tiene
     //private Login login;
@@ -53,7 +52,7 @@ public class UserDTO {
 
     public String toJSON() {
         final Gson prettyGson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation() // Quitamos los campos que no están expuestos y evitamos lo anterior
+                .excludeFieldsWithoutExposeAnnotation() // Quitamos los campos que no están expuestos @expose y evitamos lo anterior
                 .setPrettyPrinting()
                 .create();
         // Otra manera de quitar un campo determinado para imprimir
