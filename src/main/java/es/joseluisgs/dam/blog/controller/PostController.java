@@ -1,9 +1,5 @@
 package es.joseluisgs.dam.blog.controller;
 
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import es.joseluisgs.dam.blog.dto.PostDTO;
 import es.joseluisgs.dam.blog.repository.PostRepository;
 import es.joseluisgs.dam.blog.service.PostService;
@@ -17,19 +13,6 @@ public class PostController {
 
     // Mi Servicio unido al repositorio
     private final PostService postService;
-    // Eliminamos los campso que qno queremos que salgan en el JSON
-    ExclusionStrategy strategy = new ExclusionStrategy() {
-        @Override
-        public boolean shouldSkipClass(Class<?> clazz) {
-            return false;
-        }
-
-        @Override
-        public boolean shouldSkipField(FieldAttributes field) {
-            return field.getName().startsWith("password")
-                    || field.getName().startsWith("posts"); // Cuidado que si no entra en bucle recursivo
-        }
-    };
 
     // Implementamos nuestro Singleton para el controlador
     private PostController(PostService postService) {
@@ -44,74 +27,53 @@ public class PostController {
     }
 
     // Ejemplo de operaciones
-    public String getAllPostJSON() {
-        // Vamos a devolver el JSON de las categorías
+    public List<PostDTO> getAllPost() {
         try {
-            final Gson prettyGson = new GsonBuilder()
-                    .addSerializationExclusionStrategy(strategy)
-                    .setPrettyPrinting()
-                    .create();
-            return prettyGson.toJson(postService.getAllPosts());
+            return postService.getAllPosts();
         } catch (SQLException e) {
             System.err.println("Error PostController en getAllPots: " + e.getMessage());
-            return "Error PostController en getAllPost: " + e.getMessage();
+            return null;
         }
     }
 
-    public String getPostByIdJSON(Long id) {
-        // Vamos a devolver el JSON de las categorías
+    public PostDTO getPostById(Long id) {
         try {
-            final Gson prettyGson = new GsonBuilder()
-                    .addSerializationExclusionStrategy(strategy)
-                    .setPrettyPrinting()
-                    .create();
-            return prettyGson.toJson(postService.getPostById(id));
+           return postService.getPostById(id);
         } catch (SQLException e) {
             System.err.println("Error PostController en getPostById " + e.getMessage());
-            return "Error PostController en getPostById: " + e.getMessage();
+            return null;
         }
     }
 
-    public String postPostJSON(PostDTO postDTO) {
+    public PostDTO postPost(PostDTO postDTO) {
         try {
-            final Gson prettyGson = new GsonBuilder()
-                    .addSerializationExclusionStrategy(strategy)
-                    .setPrettyPrinting()
-                    .create();
-            return prettyGson.toJson(postService.postPost(postDTO));
+            return postService.postPost(postDTO);
         } catch (SQLException e) {
             System.err.println("Error PostController en postPost: " + e.getMessage());
-            return "Error PostController en postPost: " + e.getMessage();
+            return null;
         }
     }
 
-    public String updatePostJSON(PostDTO postDTO) {
+    public PostDTO updatePost(PostDTO postDTO) {
         try {
-            final Gson prettyGson = new GsonBuilder()
-                    .addSerializationExclusionStrategy(strategy)
-                    .setPrettyPrinting()
-                    .create();
-            return prettyGson.toJson(postService.updatePost(postDTO));
+            return postService.updatePost(postDTO);
         } catch (SQLException e) {
             System.err.println("Error PostController en updatePost: " + e.getMessage());
-            return "Error PostController en updatePost: " + e.getMessage();
+            return null;
         }
     }
 
-    public String deletePostJSON(PostDTO postDTO) {
+    public PostDTO deletePost(PostDTO postDTO) {
         try {
-            final Gson prettyGson = new GsonBuilder()
-                    .addSerializationExclusionStrategy(strategy)
-                    .setPrettyPrinting()
-                    .create();
-            return prettyGson.toJson(postService.deletePost(postDTO));
+            return postService.deletePost(postDTO);
         } catch (SQLException e) {
             System.err.println("Error PostController en deletePost: " + e.getMessage());
-            return "Error PostController en deletePost: " + e.getMessage();
+            return null;
         }
     }
 
-    public Optional<PostDTO> getPostById(Long id) {
+    // Lo hago como Optional para que veas como deberías hacerlo sin devolver siempre null
+    public Optional<PostDTO> getPostByIdOptional(Long id) {
         try {
             return Optional.of(postService.getPostById(id));
         } catch (SQLException e) {

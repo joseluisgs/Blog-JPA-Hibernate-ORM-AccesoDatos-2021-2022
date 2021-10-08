@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -55,5 +54,13 @@ public class Category {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (texto != null ? texto.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", texto='" + texto + '\'' +
+                '}';
     }
 }

@@ -13,4 +13,13 @@ public class LoginDTO {
     private User user;
     private Timestamp ultimoAcceso;
     private String token;
+
+    @Override
+    public String toString() {
+        return "LoginDTO{" +
+                "user=" + user +
+                ", ultimoAcceso=" + ultimoAcceso +
+                ", token='" + token + '\'' +
+                '}';
+    }
 }

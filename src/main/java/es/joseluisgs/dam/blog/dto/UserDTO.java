@@ -4,39 +4,40 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import es.joseluisgs.dam.blog.dao.Comment;
 import es.joseluisgs.dam.blog.dao.Post;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
-@Data
 @Builder
+@Getter
+@Setter
+// Exposé expone solo los campso que queramos en el JSON
 public class UserDTO {
-    ExclusionStrategy strategy = new ExclusionStrategy() {
-        @Override
-        public boolean shouldSkipClass(Class<?> clazz) {
-            return false;
-        }
-
-        @Override
-        public boolean shouldSkipField(FieldAttributes field) {
-            return field.getName().startsWith("password");
-        }
-    };
+    // @Expose
     private Long id;
+    // @Expose
     private String nombre;
+    // @Expose
     private String email;
+    // @Expose
     private Date fechaRegistro;
 
     // TODO Bidireccionalidad
     // Lista de Comentarios
-    //private Set<Comment> comentarios = new HashSet<>();
+    private Set<Comment> comentarios = new HashSet<>();
     // Lista de Posts
-    private List<Post> posts = new ArrayList<>();
+    private Set<Post> posts = new HashSet<>();
     // Su login activo si lo tiene
     //private Login login;
 
@@ -52,12 +53,29 @@ public class UserDTO {
 
     public String toJSON() {
         final Gson prettyGson = new GsonBuilder()
-                // .excludeFieldsWithoutExposeAnnotation() // Quitamos los campos que no están expuestos y evitamos lo anterior
-                .addSerializationExclusionStrategy(strategy)
+                .excludeFieldsWithoutExposeAnnotation() // Quitamos los campos que no están expuestos @expose y evitamos lo anterior
                 .setPrettyPrinting()
                 .create();
         // Otra manera de quitar un campo determinado para imprimir
         // prettyGson.toJsonTree(this).getAsJsonObject().remove("password");
         return prettyGson.toJson(this);
+    }
+
+//    @Override
+//    public String toString() {
+//        return this.toJSON();
+//    }
+
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                ", fechaRegistro=" + fechaRegistro +
+                // ", posts=" + posts + // No voy a imprimir los posts poprque son muy largos
+                //", password='" + password + '\'' + // Así no sale el password
+                '}';
     }
 }

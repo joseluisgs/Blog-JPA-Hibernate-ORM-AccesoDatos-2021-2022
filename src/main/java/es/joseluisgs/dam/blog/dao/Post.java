@@ -7,9 +7,10 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Objects;
 
-@Data
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,6 +27,7 @@ public class Post {
     private Timestamp fechaPublicacion;
     private User user;
     private Category category;
+    private Collection<Comment> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +39,7 @@ public class Post {
     public void setId(long id) {
         this.id = id;
     }
+
 
     @Basic
     @Column(name = "titulo", nullable = false, length = 250)
@@ -110,5 +113,32 @@ public class Post {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    // Pongo EAGER porque están en contexto diferentes y debememos conseguirlo
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = CascadeType. REMOVE) // cascade = CascadeType.ALL
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
+    }
+
+    @Override
+    // No es obligatorio, pero al hacerlo podemos tener problemas con la recursividad de las llamadas
+    // Post es mi entidad fuerte, voy a sacra todo de ella porque si la debo procesar en una interfaz lo veo todo de ella
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", url='" + url + '\'' +
+                ", contenido='" + contenido + '\'' +
+                ", fechaPublicacion=" + fechaPublicacion +
+                // Cuidado con la recursividad
+                ", user=" + user +
+                ", category=" + category +
+                ", comments=" + comments +
+                '}';
     }
 }

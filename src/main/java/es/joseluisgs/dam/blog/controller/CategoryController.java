@@ -1,12 +1,11 @@
 package es.joseluisgs.dam.blog.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import es.joseluisgs.dam.blog.dto.CategoryDTO;
 import es.joseluisgs.dam.blog.repository.CategoryRepository;
 import es.joseluisgs.dam.blog.service.CategoryService;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class CategoryController {
@@ -33,59 +32,53 @@ public class CategoryController {
 //        return categoryService.getAllCategories();
 //    }
 
-    public String getAllCategoriesJSON() {
+    public List<CategoryDTO> getAllCategories() {
         try {
-            // Vamos a devolver el JSON de las categorías
-            final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
-            return prettyGson.toJson(categoryService.getAllCategories());
+            return categoryService.getAllCategories();
         } catch (SQLException e) {
             System.err.println("Error CategoryController en getAllCategories: " + e.getMessage());
-            return "Error CategoryController en getAllCategories: " + e.getMessage();
+            return null;
         }
     }
 
-    public String getCategoryByIdJSON(Long id) {
-        try {
-            // Vamos a devolver el JSON de las categorías
-            final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
-            return prettyGson.toJson(categoryService.getCategoryById(id));
+    public CategoryDTO getCategoryById(Long id) {
+        try{
+            return categoryService.getCategoryById(id);
         } catch (SQLException e) {
             System.err.println("Error CategoryController en getCategoryById: " + e.getMessage());
-            return "Error CategoryController en getCategoryById: " + e.getMessage();
+            return null;
         }
     }
 
-    public String postCategoryJSON(CategoryDTO categoryDTO) {
+    public CategoryDTO postCategory(CategoryDTO categoryDTO) {
         try {
-            final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
-            return prettyGson.toJson(categoryService.postCategory(categoryDTO));
+            return categoryService.postCategory(categoryDTO);
         } catch (SQLException e) {
             System.err.println("Error CategoryController en postCategory: " + e.getMessage());
-            return "Error CategoryController en postCategory: " + e.getMessage();
+            return null;
         }
     }
 
-    public String updateCategoryJSON(CategoryDTO categoryDTO) {
+    public CategoryDTO updateCategory(CategoryDTO categoryDTO) {
         try {
-            final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
-            return prettyGson.toJson(categoryService.updateCategory(categoryDTO));
+            return categoryService.updateCategory(categoryDTO);
         } catch (SQLException e) {
             System.err.println("Error CategoryController en updateCategory: " + e.getMessage());
-            return "Error CategoryController en updateCategory: " + e.getMessage();
+            return null;
         }
     }
 
-    public String deleteCategoryJSON(CategoryDTO categoryDTO) {
+    public CategoryDTO deleteCategory(CategoryDTO categoryDTO) {
         try {
-            final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
-            return prettyGson.toJson(categoryService.deleteCategory(categoryDTO));
+           return categoryService.deleteCategory(categoryDTO);
         } catch (SQLException e) {
             System.err.println("Error CategoryController en deleteCategory: " + e.getMessage());
-            return "Error CategoryController en deleteCategory: " + e.getMessage();
+            return null;
         }
     }
 
-    public Optional<CategoryDTO> getCategoryById(Long id) {
+    // Por gusto lo hago con un optional para que lo veas como tratar la excepción con if
+    public Optional<CategoryDTO> getCategoryByIdOptional(Long id) {
         try {
             return Optional.of(categoryService.getCategoryById(id));
         } catch (SQLException e) {

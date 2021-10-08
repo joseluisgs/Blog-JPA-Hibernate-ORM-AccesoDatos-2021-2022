@@ -20,6 +20,7 @@
         <class>es.joseluisgs.dam.blog.dao.User</class>
         <class>es.joseluisgs.dam.blog.dao.Login</class>
         <class>es.joseluisgs.dam.blog.dao.Post</class>
+        <class>es.joseluisgs.dam.blog.dao.Comment</class>
 
         <!-- Añadimos las propiedades de conexión a la base de datos MySQL -->
         <properties>

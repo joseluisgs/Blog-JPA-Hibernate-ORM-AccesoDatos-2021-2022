@@ -17,6 +17,8 @@ public class UserMapper extends BaseMapper<User, UserDTO> {
         user.setEmail(item.getEmail());
         user.setPassword(item.getPassword());
         user.setFechaRegistro(item.getFechaRegistro());
+        user.setPosts(item.getPosts());
+        user.setComments(item.getComentarios());
         return user;
     }
 
@@ -28,7 +30,8 @@ public class UserMapper extends BaseMapper<User, UserDTO> {
                 .email(item.getEmail())
                 .password(item.getPassword())
                 .fechaRegistro(item.getFechaRegistro())
-                .posts((List<Post>) item.getPosts())
+                .posts(item.getPosts())
+                .comentarios(item.getComments())
                 .build();
     }
 }

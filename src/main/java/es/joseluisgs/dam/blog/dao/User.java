@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
 
 // @Data Ojo con el data que entra en un bucle infinito por la definición de la relación muchos a uno, debes hacer el string a mano
 // y Quitar los posts
@@ -29,7 +30,8 @@ public class User {
     private String password;
     private Date fechaRegistro;
     private Login login;
-    private Collection<Post> posts;
+    private Set<Post> posts;
+    private Set<Comment> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,18 +109,6 @@ public class User {
         this.login = loginById;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", fechaRegistro=" + fechaRegistro +
-                ", login=" + login +
-                '}';
-    }
-
     // @OneToMany(fetch = FetchType.EAGER, mappedBy = "topic", cascade = CascadeType.ALL)
     // Si lo ponemos a lazy perdemos el contecto de la sesión.. a veces y te puedes saltarte una excepción
     /* En @OneToMany el fetch type default es Lazy, esto hace que el atributo posts no sea instanciado hasta que se haga getPosts().
@@ -127,13 +117,40 @@ public class User {
         cambia el comportamiento default con @OneToMany(fetch=FetchType.EAGER).
         Esto hace que friends se instancie junto con el resto de los atributos.
      */
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    public Collection<Post> getPosts() {
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user" ) // Estudiar la cascada
+    public Set<Post> getPosts() {
         return posts;
     }
 
     // No es necesario si no queremos cambiar los post desde usuario
-    public void setPosts(Collection<Post> posts) {
+    public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    // La Cascada
+    // http://openjpa.apache.org/builds/2.4.0/apache-openjpa/docs/jpa_overview_meta_field.html#jpa_overview_meta_cascade
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE) // cascade = CascadeType.ALL
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    @Override
+    // No es obligatorio, pero al hacerlo podemos tener problemas con la recursividad de las llamadas
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                // ", password='" + password + '\'' + Evitamos
+                ", fechaRegistro=" + fechaRegistro +
+                ", login=" + login +
+                // Cuidado aqui con las llamadas recursivas No me interesa imprimir los post del usuario, pueden ser muchos
+                 // ", posts=" + posts + // Podriamos quitarlos para no verlos
+                // Tampoco saco los comentarios
+                '}';
     }
 }

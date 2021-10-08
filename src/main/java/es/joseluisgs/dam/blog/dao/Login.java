@@ -78,4 +78,14 @@ public class Login {
         this.user = user;
         this.userId = user.getId();
     }
+
+    @Override
+    public String toString() {
+        return "Login{" +
+                "userId=" + userId +
+                ", ultimoAcceso=" + ultimoAcceso +
+                ", token='" + token + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }
