@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Objects;
 
 @Data
@@ -26,6 +27,7 @@ public class Post {
     private Timestamp fechaPublicacion;
     private User user;
     private Category category;
+    private Collection<Comment> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -110,5 +112,15 @@ public class Post {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    // Pongo EAGER porque están en contexto diferentes y debememos conseguirlo
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = CascadeType.ALL)
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
     }
 }

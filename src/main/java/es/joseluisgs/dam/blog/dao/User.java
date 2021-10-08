@@ -30,6 +30,7 @@ public class User {
     private Date fechaRegistro;
     private Login login;
     private Collection<Post> posts;
+    private Collection<Comment> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -127,7 +128,7 @@ public class User {
         cambia el comportamiento default con @OneToMany(fetch=FetchType.EAGER).
         Esto hace que friends se instancie junto con el resto de los atributos.
      */
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.MERGE)
     public Collection<Post> getPosts() {
         return posts;
     }
@@ -135,5 +136,16 @@ public class User {
     // No es necesario si no queremos cambiar los post desde usuario
     public void setPosts(Collection<Post> posts) {
         this.posts = posts;
+    }
+
+    // La Cascada
+    // http://openjpa.apache.org/builds/2.4.0/apache-openjpa/docs/jpa_overview_meta_field.html#jpa_overview_meta_cascade
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
     }
 }
