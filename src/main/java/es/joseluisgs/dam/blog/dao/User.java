@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
 
 // @Data Ojo con el data que entra en un bucle infinito por la definición de la relación muchos a uno, debes hacer el string a mano
 // y Quitar los posts
@@ -29,7 +30,7 @@ public class User {
     private String password;
     private Date fechaRegistro;
     private Login login;
-    private Collection<Post> posts;
+    private Set<Post> posts;
     private Collection<Comment> comments;
 
     @Id
@@ -117,12 +118,12 @@ public class User {
         Esto hace que friends se instancie junto con el resto de los atributos.
      */
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.MERGE)
-    public Collection<Post> getPosts() {
+    public Set<Post> getPosts() {
         return posts;
     }
 
     // No es necesario si no queremos cambiar los post desde usuario
-    public void setPosts(Collection<Post> posts) {
+    public void setPosts(Set<Post> posts) {
         this.posts = posts;
     }
 

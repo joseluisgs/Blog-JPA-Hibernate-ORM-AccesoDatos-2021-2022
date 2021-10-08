@@ -10,7 +10,9 @@ import lombok.Data;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -36,7 +38,7 @@ public class UserDTO {
     // Lista de Comentarios
     //private Set<Comment> comentarios = new HashSet<>();
     // Lista de Posts
-    private List<Post> posts = new ArrayList<>();
+    private Set<Post> posts = new HashSet<>();
     // Su login activo si lo tiene
     //private Login login;
 

@@ -4,18 +4,16 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import es.joseluisgs.dam.blog.dao.Category;
-import es.joseluisgs.dam.blog.dao.Comment;
+import es.joseluisgs.dam.blog.dao.Post;
 import es.joseluisgs.dam.blog.dao.User;
 import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Data
 @Builder
-public class PostDTO {
+public class CommentDTO {
     ExclusionStrategy strategy = new ExclusionStrategy() {
         @Override
         public boolean shouldSkipClass(Class<?> clazz) {
@@ -30,18 +28,12 @@ public class PostDTO {
         }
     };
     private Long id;
-    private String titulo;
-    private String url;
-    private String contenido;
+    private String texto;
     private Timestamp fechaPublicacion;
-    // Autor
+    // Autor que la realiza
     private User user;
-    // Categoría a la que pertenece
-    private Category category;
-    // Para mejorar las relaciones y como es un dTO vamos a poner los ids
-    private Long user_id, category_id;
-    // Lista de comentarios asociados
-    private List<Comment> comments;
+    // Post al que pertenece
+    private Post post;
 
     // From/To JSON
     public static CategoryDTO fromJSON(String json) {

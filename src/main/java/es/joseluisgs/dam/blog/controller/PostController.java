@@ -28,7 +28,7 @@ public class PostController {
         public boolean shouldSkipField(FieldAttributes field) {
             return field.getName().startsWith("password")
                     || field.getName().startsWith("posts")
-                    || field.getName().startsWith("comments"); // Cuidado que si no entra en bucle recursivo
+                    || field.getName().startsWith("comments"); // Cuidado que si no entra en bucle recursivo por la librería JSON
         }
     };
 

@@ -1,7 +1,10 @@
 package es.joseluisgs.dam.blog.mapper;
 
+import es.joseluisgs.dam.blog.dao.Comment;
 import es.joseluisgs.dam.blog.dao.Post;
 import es.joseluisgs.dam.blog.dto.PostDTO;
+
+import java.util.List;
 
 public class PostMapper extends BaseMapper<Post, PostDTO> {
     @Override
@@ -30,6 +33,7 @@ public class PostMapper extends BaseMapper<Post, PostDTO> {
                 .fechaPublicacion(item.getFechaPublicacion())
                 .user(item.getUser())
                 .category(item.getCategory())
+                .comments((List<Comment>) item.getComments())
                 .build();
     }
 }
