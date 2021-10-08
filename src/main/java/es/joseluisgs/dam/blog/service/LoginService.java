@@ -3,12 +3,10 @@ package es.joseluisgs.dam.blog.service;
 import es.joseluisgs.dam.blog.dao.Login;
 import es.joseluisgs.dam.blog.dao.User;
 import es.joseluisgs.dam.blog.dto.LoginDTO;
-import es.joseluisgs.dam.blog.dto.UserDTO;
 import es.joseluisgs.dam.blog.mapper.LoginMapper;
 import es.joseluisgs.dam.blog.repository.LoginRepository;
 import es.joseluisgs.dam.blog.repository.UserRepository;
 import es.joseluisgs.dam.blog.utils.Cifrador;
-
 
 import java.sql.SQLException;
 import java.sql.Timestamp;

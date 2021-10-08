@@ -10,7 +10,7 @@ import java.util.List;
 
 public class UserRepository implements CrudRespository<User, Long> {
     @Override
-    public List<User> findAll()  {
+    public List<User> findAll() {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
         TypedQuery<User> query = hc.getManager().createNamedQuery("User.findAll", User.class);
@@ -25,7 +25,7 @@ public class UserRepository implements CrudRespository<User, Long> {
         hc.open();
         User user = hc.getManager().find(User.class, ID);
         hc.close();
-        if(user != null)
+        if (user != null)
             return user;
         throw new SQLException("Error UserRepository no existe usuario con ID: " + ID);
     }
@@ -40,7 +40,7 @@ public class UserRepository implements CrudRespository<User, Long> {
             hc.getTransaction().commit();
             hc.close();
             return user;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new SQLException("Error UserRepository al insertar usuario en BD");
         } finally {
             if (hc.getTransaction().isActive()) {
@@ -60,7 +60,7 @@ public class UserRepository implements CrudRespository<User, Long> {
             hc.getTransaction().commit();
             hc.close();
             return user;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new SQLException("Error UserRepository al actualizar usuario con id: " + user.getId());
         } finally {
             if (hc.getTransaction().isActive()) {
@@ -83,7 +83,7 @@ public class UserRepository implements CrudRespository<User, Long> {
             hc.getTransaction().commit();
             hc.close();
             return user;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new SQLException("Error UserRepository al eliminar usuario con id: " + user.getId());
         } finally {
             if (hc.getTransaction().isActive()) {
@@ -96,11 +96,11 @@ public class UserRepository implements CrudRespository<User, Long> {
     public User getByEmail(String userMail) throws SQLException {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
-        User user =  hc.getManager().createNamedQuery("User.getByMail", User.class)
+        User user = hc.getManager().createNamedQuery("User.getByMail", User.class)
                 .setParameter(1, userMail)
-                        .getSingleResult();
+                .getSingleResult();
         hc.close();
-        if(user != null)
+        if (user != null)
             return user;
         throw new SQLException("Error UserRepository no existe usuario con Email: " + userMail);
     }

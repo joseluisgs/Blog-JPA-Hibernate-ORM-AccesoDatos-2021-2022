@@ -4,7 +4,6 @@ import es.joseluisgs.dam.blog.controller.CategoryController;
 import es.joseluisgs.dam.blog.controller.LoginController;
 import es.joseluisgs.dam.blog.controller.PostController;
 import es.joseluisgs.dam.blog.controller.UserController;
-import es.joseluisgs.dam.blog.dao.User;
 import es.joseluisgs.dam.blog.database.DataBaseController;
 import es.joseluisgs.dam.blog.dto.CategoryDTO;
 import es.joseluisgs.dam.blog.dto.PostDTO;
@@ -235,7 +234,6 @@ public class Blog {
         user = userController.getUserById(1L).get();
         // Por cierto, prueba quitando el FetchType.EAGER de getPost de User y mira que pasa. ¿Lo entiendes?
         user.getPosts().forEach(System.out::println);
-
 
 
         System.out.println("FIN POSTS");

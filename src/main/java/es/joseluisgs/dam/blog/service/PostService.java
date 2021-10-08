@@ -3,12 +3,9 @@ package es.joseluisgs.dam.blog.service;
 import es.joseluisgs.dam.blog.dao.Post;
 import es.joseluisgs.dam.blog.dto.PostDTO;
 import es.joseluisgs.dam.blog.mapper.PostMapper;
-import es.joseluisgs.dam.blog.repository.CategoryRepository;
 import es.joseluisgs.dam.blog.repository.PostRepository;
-import es.joseluisgs.dam.blog.repository.UserRepository;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PostService extends BaseService<Post, Long, PostRepository> {
@@ -46,7 +43,7 @@ public class PostService extends BaseService<Post, Long, PostRepository> {
         return mapper.toDTO(post);
     }
 
-    public List<PostDTO> getPostsByUserId(Long userId)  {
+    public List<PostDTO> getPostsByUserId(Long userId) {
         // Obtenemos la lista
         return mapper.toDTO(repository.getByUserId(userId));
     }

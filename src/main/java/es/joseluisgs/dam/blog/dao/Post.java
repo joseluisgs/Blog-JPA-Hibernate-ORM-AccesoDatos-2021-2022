@@ -17,7 +17,7 @@ import java.util.Objects;
 @NamedQuery(name = "Post.findAll", query = "SELECT p FROM Post p")
 // Consulta para obtener todos los post dado el id de un usuario
 @NamedQuery(name = "Post.getByUserId", query = "SELECT p FROM Post p WHERE p.user.id = ?1")
-@Table(name="post") // Ojo con la minuscula que en la tabla está así
+@Table(name = "post") // Ojo con la minuscula que en la tabla está así
 public class Post {
     private long id;
     private String titulo;
@@ -28,7 +28,7 @@ public class Post {
     private Category category;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;

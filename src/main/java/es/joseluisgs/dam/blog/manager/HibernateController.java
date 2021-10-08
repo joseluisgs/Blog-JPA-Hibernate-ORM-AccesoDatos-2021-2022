@@ -20,18 +20,19 @@ public class HibernateController {
     private EntityManager manager;
     private EntityTransaction transaction;
 
-    private HibernateController() {}
+    private HibernateController() {
+    }
 
     public static HibernateController getInstance() {
-        if(controller == null)
+        if (controller == null)
             controller = new HibernateController();
         return controller;
     }
 
     public void open() {
-       entityManagerFactory = Persistence.createEntityManagerFactory("default");
-       manager = entityManagerFactory.createEntityManager();
-       transaction = manager.getTransaction();
+        entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        manager = entityManagerFactory.createEntityManager();
+        transaction = manager.getTransaction();
     }
 
     public void close() {

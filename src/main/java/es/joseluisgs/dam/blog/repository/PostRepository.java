@@ -2,7 +2,6 @@ package es.joseluisgs.dam.blog.repository;
 
 
 import es.joseluisgs.dam.blog.dao.Post;
-import es.joseluisgs.dam.blog.dao.User;
 import es.joseluisgs.dam.blog.manager.HibernateController;
 
 import javax.persistence.TypedQuery;
@@ -11,7 +10,7 @@ import java.util.List;
 
 public class PostRepository implements CrudRespository<Post, Long> {
     @Override
-    public List<Post> findAll()  {
+    public List<Post> findAll() {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
         TypedQuery<Post> query = hc.getManager().createNamedQuery("Post.findAll", Post.class);
@@ -26,7 +25,7 @@ public class PostRepository implements CrudRespository<Post, Long> {
         hc.open();
         Post post = hc.getManager().find(Post.class, ID);
         hc.close();
-        if(post != null)
+        if (post != null)
             return post;
         throw new SQLException("Error PostRepository no existe post con ID: " + ID);
     }
@@ -41,7 +40,7 @@ public class PostRepository implements CrudRespository<Post, Long> {
             hc.getTransaction().commit();
             hc.close();
             return post;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new SQLException("Error PostRepository al insertar post en BD");
         } finally {
             if (hc.getTransaction().isActive()) {
@@ -61,7 +60,7 @@ public class PostRepository implements CrudRespository<Post, Long> {
             hc.getTransaction().commit();
             hc.close();
             return post;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new SQLException("Error PostRepository al actualizar post con id: " + post.getId());
         } finally {
             if (hc.getTransaction().isActive()) {
@@ -84,7 +83,7 @@ public class PostRepository implements CrudRespository<Post, Long> {
             hc.getTransaction().commit();
             hc.close();
             return post;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new SQLException("Error PostRepository al eliminar post con id: " + post.getId());
         } finally {
             if (hc.getTransaction().isActive()) {
@@ -94,7 +93,7 @@ public class PostRepository implements CrudRespository<Post, Long> {
         }
     }
 
-    public List<Post> getByUserId(Long userId)  {
+    public List<Post> getByUserId(Long userId) {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
         List<Post> list = hc.getManager().createNamedQuery("Post.getByUserId", Post.class)

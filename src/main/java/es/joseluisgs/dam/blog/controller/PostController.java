@@ -4,8 +4,6 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import es.joseluisgs.dam.blog.dao.Post;
-import es.joseluisgs.dam.blog.dto.CategoryDTO;
 import es.joseluisgs.dam.blog.dto.PostDTO;
 import es.joseluisgs.dam.blog.repository.PostRepository;
 import es.joseluisgs.dam.blog.service.PostService;

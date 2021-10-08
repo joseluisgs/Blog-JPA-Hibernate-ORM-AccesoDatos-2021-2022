@@ -1,8 +1,6 @@
 package es.joseluisgs.dam.blog.repository;
 
 import es.joseluisgs.dam.blog.dao.Login;
-import es.joseluisgs.dam.blog.dao.User;
-import es.joseluisgs.dam.blog.database.DataBaseController;
 import es.joseluisgs.dam.blog.manager.HibernateController;
 
 import java.sql.SQLException;
@@ -32,7 +30,7 @@ public class LoginRepository implements CrudRespository<Login, Long> {
             hc.getTransaction().commit();
             hc.close();
             return login;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new SQLException("Error LoginRepository al insertar login en BD");
         } finally {
             if (hc.getTransaction().isActive()) {
@@ -63,7 +61,7 @@ public class LoginRepository implements CrudRespository<Login, Long> {
             hc.getTransaction().commit();
             hc.close();
             return true;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new SQLException("Error LoginRepository al eliminar login con id: " + userId);
         } finally {
             if (hc.getTransaction().isActive()) {

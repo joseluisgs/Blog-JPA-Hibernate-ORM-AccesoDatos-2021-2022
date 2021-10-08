@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CategoryRepository implements CrudRespository<Category, Long> {
     @Override
-    public List<Category> findAll()  {
+    public List<Category> findAll() {
         HibernateController hc = HibernateController.getInstance();
         hc.open();
         TypedQuery<Category> query = hc.getManager().createNamedQuery("Category.findAll", Category.class);
@@ -25,7 +25,7 @@ public class CategoryRepository implements CrudRespository<Category, Long> {
         hc.open();
         Category category = hc.getManager().find(Category.class, ID);
         hc.close();
-        if(category != null)
+        if (category != null)
             return category;
         throw new SQLException("Error CategoryRepository no existe categoría con ID: " + ID);
     }
@@ -40,7 +40,7 @@ public class CategoryRepository implements CrudRespository<Category, Long> {
             hc.getTransaction().commit();
             hc.close();
             return category;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new SQLException("Error CategoryRepository al insertar cantegoria en BD");
         } finally {
             if (hc.getTransaction().isActive()) {
@@ -60,7 +60,7 @@ public class CategoryRepository implements CrudRespository<Category, Long> {
             hc.getTransaction().commit();
             hc.close();
             return category;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new SQLException("Error CategoryRepository al actualizar categoria con id: " + category.getId());
         } finally {
             if (hc.getTransaction().isActive()) {
@@ -83,7 +83,7 @@ public class CategoryRepository implements CrudRespository<Category, Long> {
             hc.getTransaction().commit();
             hc.close();
             return category;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new SQLException("Error CategoryRepository al eliminar categoria con id: " + category.getId());
         } finally {
             if (hc.getTransaction().isActive()) {

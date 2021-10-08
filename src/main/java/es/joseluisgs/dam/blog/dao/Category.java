@@ -1,8 +1,9 @@
 package es.joseluisgs.dam.blog.dao;
 
 
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="category") // Ojo con la minuscula que en la tabla está así
+@Table(name = "category") // Ojo con la minuscula que en la tabla está así
 // Creamos una named Query, debe tener nombre único para obtener todas las categorias
 @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
 public class Category {
@@ -18,7 +19,7 @@ public class Category {
     private String texto;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY) // La clave es autonumérica en MariaDB
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // La clave es autonumérica en MariaDB
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
@@ -46,9 +47,7 @@ public class Category {
         Category category = (Category) o;
 
         if (id != category.id) return false;
-        if (texto != null ? !texto.equals(category.texto) : category.texto != null) return false;
-
-        return true;
+        return texto != null ? texto.equals(category.texto) : category.texto == null;
     }
 
     @Override
