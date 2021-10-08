@@ -70,34 +70,34 @@ public class Blog {
         CategoryController categoryController = CategoryController.getInstance();
 
         System.out.println("GET Todas las categorías");
-        System.out.println(categoryController.getAllCategories().toString());
+        System.out.println(categoryController.getAllCategories());
 
         System.out.println("GET Categoría con ID = 2");
-        System.out.println(categoryController.getCategoryById(2L).toJSON());
+        System.out.println(categoryController.getCategoryById(2L));
 
         System.out.println("POST Categoría");
         CategoryDTO categoryDTO = CategoryDTO.builder()
                 .texto("Insert " + LocalDateTime.now())
                 .build();
-        System.out.println(categoryController.postCategory(categoryDTO).toString());
+        System.out.println(categoryController.postCategory(categoryDTO));
 
         categoryDTO = CategoryDTO.builder()
                 .texto("Insert Otra " + LocalDateTime.now())
                 .build();
-        System.out.println(categoryController.postCategory(categoryDTO).toString());
+        System.out.println(categoryController.postCategory(categoryDTO));
 
         System.out.println("UPDATE Categoría con ID 4");
         Optional<CategoryDTO> optionalCategoryDTO = categoryController.getCategoryByIdOptional(4L);
         if (optionalCategoryDTO.isPresent()) {
             optionalCategoryDTO.get().setTexto("Update " + LocalDateTime.now());
-            System.out.println(categoryController.updateCategory(optionalCategoryDTO.get()).toString());
+            System.out.println(categoryController.updateCategory(optionalCategoryDTO.get()));
         }
 
         System.out.println("DELETE Categoría con ID 6");
         optionalCategoryDTO = categoryController.getCategoryByIdOptional(6L);
         if (optionalCategoryDTO.isPresent()) {
             System.out.println(optionalCategoryDTO.get());
-            System.out.println(categoryController.deleteCategory(optionalCategoryDTO.get()).toString());
+            System.out.println(categoryController.deleteCategory(optionalCategoryDTO.get()));
         }
 
         System.out.println("FIN CATEGORIAS");
@@ -109,10 +109,10 @@ public class Blog {
         UserController userController = UserController.getInstance();
 
         System.out.println("GET Todos los usuarios");
-        System.out.println(userController.getAllUsers().toString());
+        System.out.println(userController.getAllUsers());
 
         System.out.println("GET Usuario con ID = 2");
-        System.out.println(userController.getUserById(2L).toString());
+        System.out.println(userController.getUserById(2L));
 
         System.out.println("POST nuevo Usuario 1");
         UserDTO userDTO = UserDTO.builder()
@@ -120,7 +120,7 @@ public class Blog {
                 .email("email" + LocalDateTime.now() + "@mail.com")
                 .password("1234")
                 .build();
-        System.out.println(userController.postUser(userDTO).toString());
+        System.out.println(userController.postUser(userDTO));
 
         System.out.println("POST nuevo Usuario 2");
         userDTO = UserDTO.builder()
@@ -128,21 +128,20 @@ public class Blog {
                 .email("emailOtro" + LocalDateTime.now() + "@mail.com")
                 .password("1234")
                 .build();
-        System.out.println(userController.postUser(userDTO).toString());
+        System.out.println(userController.postUser(userDTO));
 
         System.out.println("UPDATE Usuario con ID 4");
         Optional<UserDTO> optionalUserDTO = userController.getUserByIdOptional(4L);
         if (optionalUserDTO.isPresent()) {
             optionalUserDTO.get().setNombre("Update " + LocalDateTime.now());
             optionalUserDTO.get().setEmail("emailUpdate" + LocalDateTime.now() + "@mail.com");
-            System.out.println(userController.updateUser(optionalUserDTO.get()).toString());
+            System.out.println(userController.updateUser(optionalUserDTO.get()));
         }
 
         System.out.println("DELETE Usuario con ID 6");
         optionalUserDTO = userController.getUserByIdOptional(6L);
         if (optionalUserDTO.isPresent()) {
-            System.out.println(optionalUserDTO.get());
-            System.out.println(userController.deleteUser(optionalUserDTO.get()).toString());
+            System.out.println(userController.deleteUser(optionalUserDTO.get()));
         }
 
         System.out.println("FIN USUARIOS");

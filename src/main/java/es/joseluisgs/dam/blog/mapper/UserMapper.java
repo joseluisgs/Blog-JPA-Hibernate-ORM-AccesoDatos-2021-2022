@@ -17,6 +17,7 @@ public class UserMapper extends BaseMapper<User, UserDTO> {
         user.setEmail(item.getEmail());
         user.setPassword(item.getPassword());
         user.setFechaRegistro(item.getFechaRegistro());
+        user.setPosts(item.getPosts());
         return user;
     }
 

@@ -21,6 +21,7 @@ import java.util.Set;
 @Builder
 @Getter
 @Setter
+// Exposé expone solo los campso que queramos en el JSON
 public class UserDTO {
     @Expose
     private Long id;
@@ -35,6 +36,7 @@ public class UserDTO {
     // Lista de Comentarios
     //private Set<Comment> comentarios = new HashSet<>();
     // Lista de Posts
+    @Expose
     private Set<Post> posts = new HashSet<>();
     // Su login activo si lo tiene
     //private Login login;
@@ -59,8 +61,21 @@ public class UserDTO {
         return prettyGson.toJson(this);
     }
 
+//    @Override
+//    public String toString() {
+//        return this.toJSON();
+//    }
+
+
     @Override
     public String toString() {
-        return this.toJSON();
+        return "UserDTO{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                ", fechaRegistro=" + fechaRegistro +
+                ", posts=" + posts +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

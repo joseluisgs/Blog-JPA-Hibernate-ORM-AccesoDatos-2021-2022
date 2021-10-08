@@ -30,8 +30,15 @@ public class CategoryDTO {
         return prettyGson.toJson(this);
     }
 
+//    public String toString() {
+//        return toJSON();
+//    }
+
     @Override
     public String toString() {
-        return toJSON();
+        return "CategoryDTO{" +
+                "id=" + id +
+                ", texto='" + texto + '\'' +
+                '}';
     }
 }
