@@ -2,6 +2,7 @@ package es.joseluisgs.dam.blog;
 
 import es.joseluisgs.dam.blog.controller.CategoryController;
 import es.joseluisgs.dam.blog.controller.LoginController;
+import es.joseluisgs.dam.blog.controller.PostController;
 import es.joseluisgs.dam.blog.controller.UserController;
 import es.joseluisgs.dam.blog.dao.Category;
 import es.joseluisgs.dam.blog.database.DataBaseController;
@@ -9,6 +10,7 @@ import es.joseluisgs.dam.blog.dto.CategoryDTO;
 import es.joseluisgs.dam.blog.dto.UserDTO;
 import es.joseluisgs.dam.blog.repository.CategoryRepository;
 import es.joseluisgs.dam.blog.repository.PostRepository;
+import es.joseluisgs.dam.blog.service.PostService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -172,12 +174,10 @@ public class Blog {
     public void Posts() {
         System.out.println("INICIO POSTS");
 
-        // PostController postController = PostController.getInstance();
+        PostController postController = PostController.getInstance();
 
         System.out.println("GET Todos los Post");
-        // System.out.println(postController.getAllPostJSON());
-        PostRepository r = new PostRepository();
-        r.findAll().forEach(System.out::println);
+        System.out.println(postController.getAllPostJSON());
 
         System.out.println("FIN POSTS");
     }
