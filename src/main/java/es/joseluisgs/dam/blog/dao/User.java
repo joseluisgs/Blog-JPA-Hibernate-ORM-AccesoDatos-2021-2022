@@ -108,18 +108,6 @@ public class User {
         this.login = loginById;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", fechaRegistro=" + fechaRegistro +
-                ", login=" + login +
-                '}';
-    }
-
     // @OneToMany(fetch = FetchType.EAGER, mappedBy = "topic", cascade = CascadeType.ALL)
     // Si lo ponemos a lazy perdemos el contecto de la sesión.. a veces y te puedes saltarte una excepción
     /* En @OneToMany el fetch type default es Lazy, esto hace que el atributo posts no sea instanciado hasta que se haga getPosts().
@@ -147,5 +135,20 @@ public class User {
 
     public void setComments(Collection<Comment> comments) {
         this.comments = comments;
+    }
+
+    @Override
+    // No es obligatorio, pero al hacerlo podemos tener problemas con la recursividad de las llamadas
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", fechaRegistro=" + fechaRegistro +
+                ", login=" + login +
+                // Cuidado aqui con las llamadas recursivas No me interesa imprimir los post del usuario, pueden ser muchos
+                // ", posts=" + posts +
+                '}';
     }
 }

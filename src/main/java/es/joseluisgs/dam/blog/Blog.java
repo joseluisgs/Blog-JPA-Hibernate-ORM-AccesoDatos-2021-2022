@@ -4,12 +4,14 @@ import es.joseluisgs.dam.blog.controller.CategoryController;
 import es.joseluisgs.dam.blog.controller.LoginController;
 import es.joseluisgs.dam.blog.controller.PostController;
 import es.joseluisgs.dam.blog.controller.UserController;
+import es.joseluisgs.dam.blog.dao.Comment;
 import es.joseluisgs.dam.blog.database.DataBaseController;
 import es.joseluisgs.dam.blog.dto.CategoryDTO;
 import es.joseluisgs.dam.blog.dto.PostDTO;
 import es.joseluisgs.dam.blog.dto.UserDTO;
 import es.joseluisgs.dam.blog.mapper.CategoryMapper;
 import es.joseluisgs.dam.blog.mapper.UserMapper;
+import es.joseluisgs.dam.blog.repository.CommentRepository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -240,6 +242,9 @@ public class Blog {
 
     public void Comments() {
         System.out.println("INICIO COMENTARIOS");
+
+        CommentRepository r = new CommentRepository();
+        r.findAll().forEach(System.out::println);
 
         System.out.println("FIN COMENTARIOS");
     }

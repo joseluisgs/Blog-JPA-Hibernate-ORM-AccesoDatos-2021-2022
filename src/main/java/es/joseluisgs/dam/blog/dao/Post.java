@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
-@Data
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,6 +39,7 @@ public class Post {
     public void setId(long id) {
         this.id = id;
     }
+
 
     @Basic
     @Column(name = "titulo", nullable = false, length = 250)
@@ -122,5 +123,21 @@ public class Post {
 
     public void setComments(Collection<Comment> comments) {
         this.comments = comments;
+    }
+
+    @Override
+    // No es obligatorio, pero al hacerlo podemos tener problemas con la recursividad de las llamadas
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", url='" + url + '\'' +
+                ", contenido='" + contenido + '\'' +
+                ", fechaPublicacion=" + fechaPublicacion +
+                // Cuidado con la recursividad
+                ", user=" + user +
+                ", category=" + category +
+                ", comments=" + comments +
+                '}';
     }
 }

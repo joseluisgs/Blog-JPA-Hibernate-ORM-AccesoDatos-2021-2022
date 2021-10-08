@@ -8,6 +8,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "comment") // Ojo con la minuscula que en la tabla está así
+// Todos los comentarios
+@NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c")
 public class Comment {
     private long id;
     private String texto;
@@ -89,5 +91,19 @@ public class Comment {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    @Override
+    // No es obligatorio, pero al hacerlo podemos tener problemas con la recursividad de las llamadas
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", texto='" + texto + '\'' +
+                ", fechaPublicacion=" + fechaPublicacion +
+                ", uuid='" + uuid + '\'' +
+                // Cuidado con esto que si no los post que tengan comentarios entra en recursividad
+                ", user=" + user +
+                ", post= post=Post{id:" + post.getId() + ", titulo=" + post.getTitulo() +
+                "}}";
     }
 }
