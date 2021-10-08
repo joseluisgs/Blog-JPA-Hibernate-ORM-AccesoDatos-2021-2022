@@ -4,9 +4,12 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import es.joseluisgs.dam.blog.dao.Post;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -15,23 +18,17 @@ import java.util.List;
 import java.util.Set;
 
 
-@Data
 @Builder
+@Getter
+@Setter
 public class UserDTO {
-    ExclusionStrategy strategy = new ExclusionStrategy() {
-        @Override
-        public boolean shouldSkipClass(Class<?> clazz) {
-            return false;
-        }
-
-        @Override
-        public boolean shouldSkipField(FieldAttributes field) {
-            return field.getName().startsWith("password");
-        }
-    };
+    @Expose
     private Long id;
+    @Expose
     private String nombre;
+    @Expose
     private String email;
+    @Expose
     private Date fechaRegistro;
 
     // TODO Bidireccionalidad
@@ -54,12 +51,16 @@ public class UserDTO {
 
     public String toJSON() {
         final Gson prettyGson = new GsonBuilder()
-                // .excludeFieldsWithoutExposeAnnotation() // Quitamos los campos que no están expuestos y evitamos lo anterior
-                .addSerializationExclusionStrategy(strategy)
+                .excludeFieldsWithoutExposeAnnotation() // Quitamos los campos que no están expuestos y evitamos lo anterior
                 .setPrettyPrinting()
                 .create();
         // Otra manera de quitar un campo determinado para imprimir
         // prettyGson.toJsonTree(this).getAsJsonObject().remove("password");
         return prettyGson.toJson(this);
+    }
+
+    @Override
+    public String toString() {
+        return this.toJSON();
     }
 }

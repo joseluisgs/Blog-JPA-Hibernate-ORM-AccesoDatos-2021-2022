@@ -109,38 +109,40 @@ public class Blog {
         UserController userController = UserController.getInstance();
 
         System.out.println("GET Todos los usuarios");
-        System.out.println(userController.getAllUsersJSON());
+        System.out.println(userController.getAllUsers().toString());
 
         System.out.println("GET Usuario con ID = 2");
-        System.out.println(userController.getUserByIdJSON(2L));
+        System.out.println(userController.getUserById(2L).toString());
 
-        System.out.println("POST Usuario");
+        System.out.println("POST nuevo Usuario 1");
         UserDTO userDTO = UserDTO.builder()
                 .nombre("Insert " + LocalDateTime.now())
                 .email("email" + LocalDateTime.now() + "@mail.com")
                 .password("1234")
                 .build();
-        System.out.println(userController.postUserJSON(userDTO));
+        System.out.println(userController.postUser(userDTO).toString());
+
+        System.out.println("POST nuevo Usuario 2");
         userDTO = UserDTO.builder()
                 .nombre("Insert Otro" + LocalDateTime.now())
                 .email("emailOtro" + LocalDateTime.now() + "@mail.com")
                 .password("1234")
                 .build();
-        System.out.println(userController.postUserJSON(userDTO));
+        System.out.println(userController.postUser(userDTO).toString());
 
         System.out.println("UPDATE Usuario con ID 4");
-        Optional<UserDTO> optionalUserDTO = userController.getUserById(4L);
+        Optional<UserDTO> optionalUserDTO = userController.getUserByIdOptional(4L);
         if (optionalUserDTO.isPresent()) {
             optionalUserDTO.get().setNombre("Update " + LocalDateTime.now());
             optionalUserDTO.get().setEmail("emailUpdate" + LocalDateTime.now() + "@mail.com");
-            System.out.println(userController.updateUserJSON(optionalUserDTO.get()));
+            System.out.println(userController.updateUser(optionalUserDTO.get()).toString());
         }
 
         System.out.println("DELETE Usuario con ID 6");
-        optionalUserDTO = userController.getUserById(6L);
+        optionalUserDTO = userController.getUserByIdOptional(6L);
         if (optionalUserDTO.isPresent()) {
             System.out.println(optionalUserDTO.get());
-            System.out.println(userController.deleteUserJSON(optionalUserDTO.get()));
+            System.out.println(userController.deleteUser(optionalUserDTO.get()).toString());
         }
 
         System.out.println("FIN USUARIOS");
@@ -183,7 +185,7 @@ public class Blog {
         System.out.println("POST Insertando Post");
         // Lo primero que necesito es un usuario...
         UserController userController = UserController.getInstance();
-        UserDTO user = userController.getUserById(1L).get(); // Sé que el id existe ...
+        UserDTO user = userController.getUserByIdOptional(1L).get(); // Sé que el id existe ...
         // Y una categoría
         CategoryController categoryController = CategoryController.getInstance();
         CategoryDTO category = categoryController.getCategoryByIdOptional(1L).get();
@@ -202,7 +204,7 @@ public class Blog {
 
         // System.out.println(postDTO);
         System.out.println(postController.postPostJSON(postDTO));
-        user = userController.getUserById(1L).get();
+        user = userController.getUserByIdOptional(1L).get();
         category = categoryController.getCategoryByIdOptional(1L).get();
         postDTO = PostDTO.builder()
                 .titulo("Insert Otro" + LocalDateTime.now())
@@ -231,7 +233,7 @@ public class Blog {
         postController.getPostByUserId(1L).forEach(System.out::println);
 
         System.out.println("GET By Post con User ID 1 usando la Relación Usuario --> Post");
-        user = userController.getUserById(1L).get();
+        user = userController.getUserByIdOptional(1L).get();
         // Por cierto, prueba quitando el FetchType.EAGER de getPost de User y mira que pasa. ¿Lo entiendes?
         user.getPosts().forEach(System.out::println);
 

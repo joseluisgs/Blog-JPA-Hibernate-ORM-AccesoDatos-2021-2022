@@ -1,14 +1,11 @@
 package es.joseluisgs.dam.blog.controller;
 
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import es.joseluisgs.dam.blog.dto.UserDTO;
 import es.joseluisgs.dam.blog.repository.UserRepository;
 import es.joseluisgs.dam.blog.service.UserService;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class UserController {
@@ -16,20 +13,7 @@ public class UserController {
 
     // Mi Servicio unido al repositorio
     private final UserService userService;
-    // Con esto evitamos que se imprima el campo password si no queremos
-    // https://www.baeldung.com/gson-exclude-fields-serialization
-    ExclusionStrategy strategy = new ExclusionStrategy() {
-        @Override
-        public boolean shouldSkipClass(Class<?> clazz) {
-            return false;
-        }
 
-        @Override
-        public boolean shouldSkipField(FieldAttributes field) {
-            return field.getName().startsWith("password")
-                    || field.getName().startsWith("posts");
-        }
-    };
 
     // Implementamos nuestro Singleton para el controlador
     private UserController(UserService userService) {
@@ -43,74 +27,55 @@ public class UserController {
         return controller;
     }
 
-    public String getAllUsersJSON() {
+    public List<UserDTO> getAllUsers() {
         // Vamos a devolver el JSON de las categorías
         try {
-            final Gson prettyGson = new GsonBuilder()
-                    .addSerializationExclusionStrategy(strategy)
-                    .setPrettyPrinting()
-                    .create();
-            return prettyGson.toJson(userService.getAllUsers());
+           return userService.getAllUsers();
         } catch (SQLException e) {
             System.err.println("Error UserController en getAllUser: " + e.getMessage());
-            return "Error UserController en getAllUser: " + e.getMessage();
+            return null;
         }
     }
 
-    public String getUserByIdJSON(Long id) {
+    public UserDTO getUserById(Long id) {
         // Vamos a devolver el JSON de las categorías
         try {
-            final Gson prettyGson = new GsonBuilder()
-                    .addSerializationExclusionStrategy(strategy)
-                    .setPrettyPrinting()
-                    .create();
-            return prettyGson.toJson(userService.getUserById(id));
+            return userService.getUserById(id);
         } catch (SQLException e) {
             System.err.println("Error UserController en getUserById " + e.getMessage());
-            return "Error UserController en getUserById: " + e.getMessage();
+            return null;
         }
     }
 
-    public String postUserJSON(UserDTO userDTO) {
+    public UserDTO postUser(UserDTO userDTO) {
         try {
-            final Gson prettyGson = new GsonBuilder()
-                    .addSerializationExclusionStrategy(strategy)
-                    .setPrettyPrinting()
-                    .create();
-            return prettyGson.toJson(userService.postUser(userDTO));
+            return userService.postUser(userDTO);
         } catch (SQLException e) {
             System.err.println("Error UserController en postUser " + e.getMessage());
-            return "Error UserController en postUser: " + e.getMessage();
+            return null;
         }
     }
 
-    public String updateUserJSON(UserDTO userDTO) {
+    public UserDTO updateUser(UserDTO userDTO) {
         try {
-            final Gson prettyGson = new GsonBuilder()
-                    .addSerializationExclusionStrategy(strategy)
-                    .setPrettyPrinting()
-                    .create();
-            return prettyGson.toJson(userService.updateUser(userDTO));
+            return userService.updateUser(userDTO);
         } catch (SQLException e) {
             System.err.println("Error UserController en updateUser " + e.getMessage());
-            return "Error UserController en updateUser: " + e.getMessage();
+            return null;
         }
     }
 
-    public String deleteUserJSON(UserDTO userDTO) {
+    public UserDTO deleteUser(UserDTO userDTO) {
         try {
-            final Gson prettyGson = new GsonBuilder()
-                    .addSerializationExclusionStrategy(strategy)
-                    .setPrettyPrinting()
-                    .create();
-            return prettyGson.toJson(userService.deleteUser(userDTO));
+           return userService.deleteUser(userDTO);
         } catch (SQLException e) {
             System.err.println("Error UserController en deleteUser " + e.getMessage());
-            return "Error UserController en deleteUser: " + e.getMessage();
+            return null;
         }
     }
 
-    public Optional<UserDTO> getUserById(Long id) {
+    // Lo hago así para que veas otra forma de no devolver null y evitar errores.
+    public Optional<UserDTO> getUserByIdOptional(Long id) {
         try {
             return Optional.of(userService.getUserById(id));
         } catch (SQLException e) {
