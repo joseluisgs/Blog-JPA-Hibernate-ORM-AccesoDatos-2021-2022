@@ -16,6 +16,7 @@ Objeto Relacional (ORM) usando Hibernate y JPA e implementando distintas técnic
     - [Arquitectura](#arquitectura)
   - [Hibernate](#hibernate)
   - [JPA: Java Persistence API](#jpa-java-persistence-api)
+  - [Diagrama de la Persistencia](#diagrama-de-la-persistencia)
   - [Ejecución](#ejecución)
     - [Docker](#docker)
     - [Adminer o cliente de Bases de Datos](#adminer-o-cliente-de-bases-de-datos)
@@ -48,6 +49,7 @@ Se desea implementar la base de un blog teniendo en cuenta que:
 - Los usuarios pueden hacer distintos comentarios sobre posts existentes.
 
 ### Ejemplo de diagrama
+
 ![diagrama](./diagrams/Diagrams.png)
 
 ## Desarrollo
@@ -69,6 +71,10 @@ convirtiendo dichas acciones en sentencias SQL y liberándonos de realizar las c
 ## JPA: Java Persistence API
 Java Persistence API, más conocida por sus siglas JPA, es la API de persistencia desarrollada para la plataforma Java EE.
 JPA es una especificación y no un Framework como tal, por lo tanto necesita de alguien que lo implemente, por ejemplo Hibernate.
+
+## Diagrama de la Persistencia 
+El diagrama de la persistencia generada puede verse en esta imagen.
+![diagrama](./diagrams/Persistence.png);
 
 ## Ejecución
 ### Docker
