@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
-    <persistence-unit name="default">
 
+    <!-- Nombre de la unidad de persistencia -->
+    <persistence-unit name="default">
+        <description>Ejemplo Blog Hibernate JPA</description>
+
+        <!-- Indicamos el “provider” que es la implementación de JPA que estamos usando.
+       En nuestro ejemplo hibernate, pero existen otros proveedores como EclipseLink: -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Definiremos las clases que representan “entidades”. Por cada clase
+   debemos utilizar la etiqueta <class> cuyo contenido debe incluir el paquete y el
+   nombre de la clase: -->
+
+        <class>es.joseluisgs.dam.blog.dao.Category</class>
+        <class>es.joseluisgs.dam.blog.dao.User</class>
+        <class>es.joseluisgs.dam.blog.dao.Login</class>
+        <class>es.joseluisgs.dam.blog.dao.Post</class>
+        <class>es.joseluisgs.dam.blog.dao.Comment</class>
+
+        <!-- Añadimos las propiedades de conexión a la base de datos MySQL -->
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mariadb://localhost:3306/blog"/>
+            <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver"/>
+            <property name="hibernate.connection.user" value="blog"/>
+            <property name="hibernate.connection.password" value="blog1234"/>
+            <!-- Para ver las consultas
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>  -->
+            <!-- Para trabajar con el esquema
+               validate: validate the schema, makes no changes to the database.
+               update: update the schema si detecta cambios.
+               create: creates the schema, destroying previous data.
+               create-drop: drop the schema when the SessionFactory is closed explicitly, typically when the application is stopped.
+               none: does nothing with the schema, makes no changes to the database-->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
     </persistence-unit>
 </persistence>
