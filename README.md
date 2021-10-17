@@ -1,12 +1,12 @@
-# Blog-Hibernate-AccesoDatos-2021-2022
+# Blog-Hibernate-ORM-AccesoDatos-2021-2022
 Ejemplo de desarrollo de un blog (backend básico) para Acceso a Datos, usando una base de datos realacional realizando el Mapeo 
-Objeto Relacional (ORM) usando Hibernate y JPA e implementando distintas técnicas y patrones de Acceso a Datos vistos en clase.
+Objeto Relacional (ORM) usando Hibernate ORM y JPA e implementando distintas técnicas y patrones de Acceso a Datos vistos en clase.
 
 [![Kotlin](https://img.shields.io/badge/Code-Java-blue)](https://www.java.com/es/)
 [![LISENCE](https://img.shields.io/badge/Lisence-MIT-green)]()
 ![GitHub](https://img.shields.io/github/last-commit/joseluisgs/Blog-Hibernate-AccesoDatos-2021-2022)
 
-- [Blog-Hibernate-AccesoDatos-2021-2022](#blog-hibernate-accesodatos-2021-2022)
+- [Blog-Hibernate-ORM-AccesoDatos-2021-2022](#blog-hibernate-orm-accesodatos-2021-2022)
   - [Descripción](#descripción)
   - [Tecnologías](#tecnologías)
   - [Enunciado](#enunciado)
@@ -31,8 +31,7 @@ puede que no sea la más óptima o adecuada a niveles de producción o empresari
 
 Este ejemplo, su arquitectura y parte de su solución proviene del anterior ejemplo visto en clase y que puedes encontrar [aquí](https://github.com/joseluisgs/Blog-Relacional-AccesoDatos-2021-2022).
 
-A lo largo de este desarrollo actualizarmos el ejemplo anterior para trabajar con tecnología orientada a objetos y con ella usar Hibernate y JPA para
-realizar el Mapeo Objeto-Relacional con nuestra base de datos
+A lo largo de este desarrollo actualizaremos el ejemplo anterior para trabajar con tecnología orientada a objetos y con ella usar Hibernate y JPA para realizar el Mapeo Objeto-Relacional con nuestra base de datos
 
 ## Tecnologías
 Se han usado las siguientes tecnologías:
