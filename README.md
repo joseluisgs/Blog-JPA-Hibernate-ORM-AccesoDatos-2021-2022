@@ -4,7 +4,7 @@ Objeto Relacional (ORM) usando Hibernate ORM y JPA e implementando distintas té
 
 [![Kotlin](https://img.shields.io/badge/Code-Java-blue)](https://www.java.com/es/)
 [![LISENCE](https://img.shields.io/badge/Lisence-MIT-green)]()
-![GitHub](https://img.shields.io/github/last-commit/joseluisgs/Blog-Hibernate-AccesoDatos-2021-2022)
+![GitHub](https://img.shields.io/github/last-commit/joseluisgs/Blog-Hibernate-ORM-AccesoDatos-2021-2022)
 
 - [Blog-Hibernate-ORM-AccesoDatos-2021-2022](#blog-hibernate-orm-accesodatos-2021-2022)
   - [Descripción](#descripción)
